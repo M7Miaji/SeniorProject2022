@@ -1,7 +1,6 @@
 # SeniorProject2022
 
-# These commands are used to run the application 
-# in the local host
+# These commands are used to run the application in the local host
 pip install virtualenv
 
 virtualenv SeniorProject2022
