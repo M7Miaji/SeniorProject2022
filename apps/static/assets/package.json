@@ -1,46 +1,24 @@
 {
-    "name": "@themesberg/volt-bootstrap-5-dashboard",
-    "version": "1.4.1",
-    "description": "Volt - Bootstrap 5 Dashboard",
+    "name": "generic-compilation-script",
+    "version": "1.0.0",
+    "description": "Generic Builder",
     "main": "gulpfile.js",
-    "author": "Themesberg",
+    "author": "AppSeed",
     "keywords": [
-        "bootstrap",
-        "bootstrap5",
-        "bootstrap-5",
-        "bootstrap 5",
-        "bootstrap 5 dashboard",
-        "bootstrap 5 admin dashboard",
-        "dashboard vanilla js",
-        "admin dashboard vanilla js",
-        "bootstrap template vanilla js",
-        "bootstrap 5 chart",
-        "bootstrap 5 datepicker",
-        "bootstrap 5 beta 1"
+        "css",
+        "sass",
+        "gulp",
+        "web"
     ],
-    "homepage": "https://themesberg.com/product/admin-dashboard/volt-bootstrap-5-dashboard",
-    "bugs": {
-        "url": "https://github.com/themesberg/volt-bootstrap-5-dashboard/issues"
-    },
+    "homepage": "https://appseed.us",
     "repository": {
         "type": "git",
-        "url": "https://github.com/themesberg/volt-bootstrap-5-dashboard"
+        "url": "https://github.com/app-generator"
     },
-    "license": "https://github.com/themesberg/volt-bootstrap-5-dashboard/blob/master/LICENSE.md",
-    "dependencies": {
-        "@popperjs/core": "^2.9.2",
-        "bootstrap": "^5.0.2",
-        "chartist": "^0.11.4",
-        "chartist-plugin-tooltips": "^0.0.17",
-        "notyf": "^3.10.0",
-        "nouislider": "^15.2.0",
-        "onscreen": "^1.4.0",
-        "simplebar": "^5.3.4",
-        "smooth-scroll": "^16.1.3",
-        "sweetalert2": "^11.0.18",
-        "vanillajs-datepicker": "^1.1.4",
-        "waypoints": "^4.0.1"
+    "bugs": {
+        "email": "support@appseed.us"
     },
+    "license": "MIT License",
     "devDependencies": {
         "browser-sync": "^2.27.4",
         "del": "^6.0.0",
