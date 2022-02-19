@@ -12,6 +12,8 @@ cursor = con.cursor()
 #print(cursor.fetchall())
 #INSERT INTO user (f-name,l-name,email,password,admin)
 #Value ("ysf,tgf,yf@h.v,12345,1");
+
+#khaled
 user= ('Khaled,Alkerithi,khaledmosel@gmail.com,Yousefisalegend,0'); 
 def create_user(con, user):
     """
@@ -28,3 +30,4 @@ def create_user(con, user):
     return cur.lastrowid
 create_user(con,user)
 print(cursor.fetchall())
+#INSERT [OR conflict-algorithm] INTO [database-name .] table-name [(column-list)] VALUES (value-list)
