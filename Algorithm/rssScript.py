@@ -1,6 +1,7 @@
 # This for the RSS script that will be used to feed the news page
 # This will also be used with conjunction to the the stock that the user has invested in
 
+from multiprocessing.dummy import Array
 import feedparser
 import webbrowser
 
@@ -21,7 +22,7 @@ for entry in feed.entries:
     print("Published at {}\n".format(article_published_at))
 
 # This will be used to make the access to the application much easier
-
+"""
 def feedparser(id, title, summary, link):
     feed_entries = feed.entries 
     count = 0
@@ -36,3 +37,4 @@ def feedparser(id, title, summary, link):
         print("Published at {}\n".format(article_published_at))
 
         return id, title, summary, link
+"""

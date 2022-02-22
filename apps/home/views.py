@@ -9,6 +9,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from django.shortcuts import render
+import feedparser
+import webbrowser
+
+# The feedparser that will get the application from the web 
+feed = feedparser.parse("https://finance.yahoo.com/rss/")
 
 @login_required(login_url="/login/")
 def index(request):
@@ -26,14 +31,21 @@ def pages(request):
     try:
 
         load_template = request.path.split('/')[-1]
+        # Remove the if statment to get back at the orginal code
+        if load_template == 'examples-project-detail.html':
+            if load_template == 'admin':
+                return HttpResponseRedirect(reverse('admin:index'))
+            #context['segment'] = load_template
+            context = feedparser()
+            html_template = loader.get_template('home/' + load_template)
+            return HttpResponse(html_template.render(context, request))
+        else:
+            if load_template == 'admin':
+                return HttpResponseRedirect(reverse('admin:index'))
+            context['segment'] = load_template
 
-        if load_template == 'admin':
-            return HttpResponseRedirect(reverse('admin:index'))
-        context['segment'] = load_template
-
-        html_template = loader.get_template('home/' + load_template)
-        return HttpResponse(html_template.render(context, request))
-
+            html_template = loader.get_template('home/' + load_template)
+            return HttpResponse(html_template.render(context, request))
     except template.TemplateDoesNotExist:
 
         html_template = loader.get_template('home/page-404.html')
@@ -42,3 +54,34 @@ def pages(request):
     except:
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render(context, request))
+
+def feedparser():
+    
+    feed_entries = feed.entries
+    count = 0
+    array = [1,2,3,4,5,6,7,8,9,10]
+    array1 = [1,2,3,4,5,6,7,8,9,10]
+    array2 = [1,2,3,4,5,6,7,8,9,10]
+
+    data = {"title": [1,2,3,4,5,6,7,8,9,10],
+            "date": [1,2,3,4,5,6,7,8,9,10],
+            "link": [1,2,3,4,5,6,7,8,9,10]
+            }
+    for entry in feed.entries:
+        count = count + 1
+        article_title = entry.title
+        article_link = entry.link
+        article_published_at = entry.published 
+        article_published_at_parsed = entry.published_parsed
+        array[count-1] = article_title 
+        array1[count-1] = article_published_at
+        array2[count-1] = article_link 
+
+        if count == 10:
+            break
+
+    data = {"title": array,
+            "date": array1,
+            "link": array2}
+
+    return data
