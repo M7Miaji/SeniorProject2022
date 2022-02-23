@@ -11,9 +11,10 @@ from django.urls import reverse
 from django.shortcuts import render
 import feedparser
 import webbrowser
+from django.template.defaulttags import register
 
 # The feedparser that will get the application from the web 
-feed = feedparser.parse("https://finance.yahoo.com/rss/")
+feed = feedparser.parse("https://www.cnbc.com/id/20409666/device/rss/rss.html?x=1")
 
 @login_required(login_url="/login/")
 def index(request):
@@ -59,29 +60,39 @@ def feedparser():
     
     feed_entries = feed.entries
     count = 0
-    array = [1,2,3,4,5,6,7,8,9,10]
+    arr =output = [[0 for i in range(4)] for j in range(10)]
+    
+    '''array = [1,2,3,4,5,6,7,8,9,10]
     array1 = [1,2,3,4,5,6,7,8,9,10]
-    array2 = [1,2,3,4,5,6,7,8,9,10]
+    array2 = [1,2,3,4,5,6,7,8,9,10]'''
 
-    data = {"title": [1,2,3,4,5,6,7,8,9,10],
+    '''data = {"title": [1,2,3,4,5,6,7,8,9,10],
             "date": [1,2,3,4,5,6,7,8,9,10],
             "link": [1,2,3,4,5,6,7,8,9,10]
-            }
+            }'''
+
     for entry in feed.entries:
         count = count + 1
         article_title = entry.title
         article_link = entry.link
         article_published_at = entry.published 
-        article_published_at_parsed = entry.published_parsed
-        array[count-1] = article_title 
+        article_description = entry.description
+        '''array[count-1] = article_title 
         array1[count-1] = article_published_at
-        array2[count-1] = article_link 
-
+        array2[count-1] = article_link'''
+        arr[count-1][0]=article_title 
+        arr[count-1][1]=article_published_at
+        arr[count-1][2]=article_link
+        arr[count-1][3]=article_description
         if count == 10:
             break
 
-    data = {"title": array,
-            "date": array1,
-            "link": array2}
-
+    '''data = {'title': array,
+            'date': array1,
+            'link': array2}'''
+    data = {"title": arr}
     return data
+
+@register.filter
+def get_value(dictionary, key):
+    return dictionary.get(key)
