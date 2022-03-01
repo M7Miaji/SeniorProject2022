@@ -30,7 +30,7 @@ The Algorithm works by giving each of the metrics a value,
 which will than be added up to decide the level of the risk.
 '''
 
-from pylivetrader.api import order_target, symbol
+'''from pylivetrader.api import order_target, symbol
 
 def initialize(context):
     context.i = 0
@@ -43,7 +43,7 @@ def handle_data(context, data):
     if short_mavg > long_mavg:
         order_target(context.asset, 100)
     elif short_mavg < long_mavg:
-        order_target(context.asset, 0)
+        order_target(context.asset, 0)'''
 
 def chooseAlg(dict):
     count = 0
