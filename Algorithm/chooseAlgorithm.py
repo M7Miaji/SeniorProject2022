@@ -29,7 +29,7 @@ max = 25
 The Algorithm works by giving each of the metrics a value,
 which will than be added up to decide the level of the risk.
 '''
-
+'''
 from pylivetrader.api import order_target, symbol
 
 def initialize(context):
@@ -44,11 +44,12 @@ def handle_data(context, data):
         order_target(context.asset, 100)
     elif short_mavg < long_mavg:
         order_target(context.asset, 0)
-
+'''
+'''------------------'''
 def chooseAlg(dict):
     count = 0
     if dict['Current Price'] >= min and dict['Current Price'] <= max:
-        if (dict['Opening Price'] - dict['Closing Price']) >= 3:
+        if ((dict['Opening Price'] - dict['Closing Price']) * -1) >= 3:
             count = count + 0
         else:
             count = count + 1
