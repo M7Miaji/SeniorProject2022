@@ -1,11 +1,11 @@
 import requests
 
-url = "https://stock-data-yahoo-finance-alternative.p.rapidapi.com/ws/screeners/v1/finance/screener/predefined/saved"
+url = "https://bb-finance.p.rapidapi.com/stock/get-statistics"
 
-querystring = {"scrIds":"day_gainers","count":"25"}
+querystring = {"id":"aapl:us","template":"STOCK"}
 
 headers = {
-    'x-rapidapi-host': "stock-data-yahoo-finance-alternative.p.rapidapi.com",
+    'x-rapidapi-host': "bb-finance.p.rapidapi.com",
     'x-rapidapi-key': "b7e609f330msh515f9ad6685d6b9p101692jsn4be47c1196cc"
     }
 
