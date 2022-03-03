@@ -155,8 +155,6 @@ rv_dataframe[rv_dataframe.isnull().any(axis=1)]
 for column in ['Price-to-Earnings Ratio', 'Price-to-Book Ratio','Price-to-Sales Ratio',  'EV/EBITDA','EV/GP']:
     rv_dataframe[column].fillna(rv_dataframe[column].mean(), inplace = True)
 
-"""Now, if we run the statement from earlier to print rows that contain missing data, nothing should be returned:"""
-
 rv_dataframe[rv_dataframe.isnull().any(axis=1)]
 
 metrics = {
