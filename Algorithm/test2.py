@@ -87,6 +87,7 @@ for i in range(0, len(final_dataframe['Ticker'])-1):
     final_dataframe.loc[i, 'Number Of Shares to Buy'] = math.floor(position_size / final_dataframe['Price'][i])
 final_dataframe
 
+# To write in excel  
 writer = pd.ExcelWriter('recommended_trades.xlsx', engine='xlsxwriter')
 final_dataframe.to_excel(writer, sheet_name='Recommended Trades', index = False)
 
