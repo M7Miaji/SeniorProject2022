@@ -26,14 +26,17 @@ def index(request):
 
 @login_required(login_url="/login/")
 def pages(request):
-    context = {}
+    context = {
+        "data": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    }
     # All resource paths end in .html.
     # Pick out the html file name from the url. And load that template.
     try:
-
+        
         load_template = request.path.split('/')[-1]
         # Remove the if statment to get back at the orginal code
         if load_template == 'examples-project-detail.html':
+            context = {}
             if load_template == 'admin':
                 return HttpResponseRedirect(reverse('admin:index'))
             #context['segment'] = load_template
