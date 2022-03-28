@@ -28,12 +28,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Stock Information</h1>
+            <h1 class="m-0 text-dark">Stock Information</h1> 
+            
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Stock Information</li>
+
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -46,6 +48,27 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-6">
+
+            <div class="card">
+              <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <h3 class="card-title">
+                    <form class="form-inline ml-3">
+                    <div class="input-group input-group-sm">
+                      <input class="form-control form-control-navbar bg-light text-dark border-light" type="search" placeholder="Search" aria-label="Search">
+                      <div class="input-group-append">
+                        <button class="btn btn-navbar bg-light" type="submit">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </h3>  
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
@@ -56,7 +79,7 @@
               <div class="card-body">
                 <div class="d-flex">
                   <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">{{ data.0 }}</span>
+                    <span class="text-bold text-lg">${{ data.0 }}</span>
                     <span>Price of Stock</span>
                   </p>
                   <p class="ml-auto d-flex flex-column text-right">
@@ -192,7 +215,18 @@
             <!-- /.card -->
           </div>
           <!-- /.col-md-6 -->
+
           <div class="col-lg-6">
+            
+            <div class="card" style="height: 55px">
+              <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <h3 class="card-title">Current stock owned by User: 12</h3>
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
