@@ -42,7 +42,7 @@ def pages(request):
             html_template = loader.get_template('home/' + load_template)
             return HttpResponse(html_template.render(context, request))
             
-        elif load_template == 'tables-data.html':
+        elif load_template == 'tables-data.html': # My Transaction ----------------------------------------------------------
             context = {
                 "data": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             }
