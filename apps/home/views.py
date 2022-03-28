@@ -26,9 +26,7 @@ def index(request):
 
 @login_required(login_url="/login/")
 def pages(request):
-    context = {
-        "data": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    }
+    context = {}
     # All resource paths end in .html.
     # Pick out the html file name from the url. And load that template.
     try:
@@ -43,6 +41,27 @@ def pages(request):
             context = feedparser()
             html_template = loader.get_template('home/' + load_template)
             return HttpResponse(html_template.render(context, request))
+            
+        elif load_template == 'tables-data.html':
+            context = {
+                "data": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            }
+            if load_template == 'admin':
+                return HttpResponseRedirect(reverse('admin:index'))
+            #context['segment'] = load_template
+            html_template = loader.get_template('home/' + load_template)
+            return HttpResponse(html_template.render(context, request))
+
+        elif load_template == 'index3 copy.html':
+            context = {
+                "data": [22.5, 12, 18230.00, 33.1, 13, 12, 15, 29, 0.5, 28.2, 1230, 3, 1199, 199, 63, 352, 12, 0.8, 1],
+            }
+            if load_template == 'admin':
+                return HttpResponseRedirect(reverse('admin:index'))
+            #context['segment'] = load_template
+            html_template = loader.get_template('home/' + load_template)
+            return HttpResponse(html_template.render(context, request))
+         
         else:
             if load_template == 'admin':
                 return HttpResponseRedirect(reverse('admin:index'))

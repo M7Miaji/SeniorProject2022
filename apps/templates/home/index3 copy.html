@@ -56,12 +56,12 @@
               <div class="card-body">
                 <div class="d-flex">
                   <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">820</span>
+                    <span class="text-bold text-lg">{{ data.0 }}</span>
                     <span>Price of Stock</span>
                   </p>
                   <p class="ml-auto d-flex flex-column text-right">
                     <span class="text-success">
-                      <i class="fas fa-arrow-up"></i> 12.5% <!--Make this number dynamic (Changes made using an API)-->
+                      <i class="fas fa-arrow-up"></i> {{ data.1 }}% <!--Make this number dynamic (Changes made using an API)-->
                     </span>
                     <span class="text-muted">Since last week</span>
                   </p>
@@ -113,13 +113,13 @@
                       <img src="/static/assets/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
                       Price-to-earnings (P/E)
                     </td>
-                    <td>$13 USD</td>
+                    <td>${{ data.4 }} USD</td>
                     <td>
                       <small class="text-success mr-1">
                         <i class="fas fa-arrow-up"></i>
-                        12%
+                        {{ data.5 }}%
                       </small>
-                      $15 USD
+                      ${{ data.6 }} USD
                     </td>
                     <td>
                       <a href="#" class="text-muted">
@@ -132,13 +132,13 @@
                       <img src="/static/assets/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
                       Price-to-book (P/B)
                     </td>
-                    <td>$29 USD</td>
+                    <td>${{ data.7 }} USD</td>
                     <td>
                       <small class="text-warning mr-1">
                         <i class="fas fa-arrow-down"></i>
-                        0.5%
+                        {{ data.8 }}%
                       </small>
-                      $28.2 USD
+                      ${{ data.9 }} USD
                     </td>
                     <td>
                       <a href="#" class="text-muted">
@@ -151,13 +151,13 @@
                       <img src="/static/assets/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
                       Net-profit-margin (NPM)
                     </td>
-                    <td>$1,230 USD</td>
+                    <td>${{ data.10 }} USD</td>
                     <td>
                       <small class="text-danger mr-1">
                         <i class="fas fa-arrow-down"></i>
-                        3%
+                        {{ data.11 }}%
                       </small>
-                      $1199 USD
+                      ${{ data.12 }} USD
                     </td>
                     <td>
                       <a href="#" class="text-muted">
@@ -171,13 +171,13 @@
                       Price-to-earnings-growth (PEG)
                       <span class="badge bg-danger">NEW</span>
                     </td>
-                    <td>$199 USD</td>
+                    <td>${{ data.13 }} USD</td>
                     <td>
                       <small class="text-success mr-1">
                         <i class="fas fa-arrow-up"></i>
-                        63%
+                        {{ data.14 }}%
                       </small>
-                      $352 USD
+                      ${{ data.15 }} USD
                     </td>
                     <td>
                       <a href="#" class="text-muted">
@@ -203,12 +203,12 @@
               <div class="card-body">
                 <div class="d-flex">
                   <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">$18,230.00</span>
+                    <span class="text-bold text-lg">${{ data.2 }}</span>
                     <span>Quarter Report Over Time</span>
                   </p>
                   <p class="ml-auto d-flex flex-column text-right">
                     <span class="text-success">
-                      <i class="fas fa-arrow-up"></i> 33.1%
+                      <i class="fas fa-arrow-up"></i> {{ data.3 }}%
                     </span>
                     <span class="text-muted">Since last month</span>
                   </p>
@@ -252,7 +252,7 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
                   <p class="d-flex flex-column text-left">
                     <span class="font-weight-bold">
-                      <i class="ion ion-android-arrow-up text-success"></i> 12%
+                      <i class="ion ion-android-arrow-up text-success"></i> {{ data.16 }}%
                     </span>
                     <span class="text-muted">Analyst Approval Percenatge</span>
                   </p>
@@ -265,7 +265,7 @@
       
                   <p class="d-flex flex-column text-left">
                     <span class="font-weight-bold">
-                      <i class="ion ion-android-arrow-up text-warning"></i> 0.8%
+                      <i class="ion ion-android-arrow-up text-warning"></i> {{ data.17 }}%
                     </span>
                     <span class="text-muted">Number of Buyers</span>
                   </p>
@@ -278,7 +278,7 @@
                   
                   <p class="d-flex flex-column text-left">
                     <span class="font-weight-bold">
-                      <i class="ion ion-android-arrow-down text-danger"></i> 1%
+                      <i class="ion ion-android-arrow-down text-danger"></i> {{ data.18 }}%
                     </span>
                     <span class="text-muted">Community Approvals</span>
                   </p>
