@@ -13,7 +13,7 @@ class User(models.Model):
 
 class Stock(models.Model):
    StockName=models.CharField(max_length=100)
-   stockprice=models.DecimalField()
+   
 
     
 
