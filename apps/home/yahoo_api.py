@@ -1,4 +1,5 @@
 import requests
+import pandas as pd
 
 def get_statistics():
 	url = "https://yh-finance.p.rapidapi.com/stock/v2/get-statistics"
@@ -13,4 +14,8 @@ def get_statistics():
 	response = requests.request("GET", url, headers=headers, params=querystring)
 	return response.text
 
-print(get_statistics())
+current = get_statistics()
+pandas_series = pd.Series(current)
+#current.ke]
+
+print(pandas_series.to_string())

@@ -1,4 +1,4 @@
-
+import pandas as pd
 import requests
 
 url = "https://bb-finance.p.rapidapi.com/stock/get-financials"
@@ -11,5 +11,7 @@ headers = {
 }
 
 response = requests.request("GET", url, headers=headers, params=querystring)
+
+print(response["result"]["name"])
 
 print(response.text)

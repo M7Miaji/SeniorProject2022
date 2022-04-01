@@ -1,0 +1,362 @@
+Are you into <a href=“https://rapidapi.com/collection/stock-market-apis”>stock trading</a>? Then stock quotes and charts are no strangers to you. But if you want to give yourself some edge in <a href=“https://rapidapi.com/blog/best-stock-api/”>analyzing stock data</a>, then coding up your stock chart isn’t that difficult if you have the data. Thankfully, there is also an API for that.
+<h2>The Yahoo Finance API</h2>
+Yahoo Finance is one of the reliable sources of stock market data. It supports market summaries, current and historical quotes, news feed about the companies and much more.
+
+The unofficial Yahoo Finance API is available on RapidAPI.
+
+<center><a class=“vce-button–style-basic vce-button–style-basic–border-round vce-button–style-basic–size-large vce-button–style-basic–color-557cbf–fff” href=“https://rapidapi.com/apidojo/api/yh-finance”>Connect to API</a></center>However, given that we are dealing with stock market data, it will be even more interesting to plot it on a chart. In this blog post, we will show you how to build your own stock chart with the help of Python.
+
+<img class=“alignnone size-large wp-image-3147” src=“https://rapidapi.com/blog/wp-content/uploads/2019/09/googl-stock-chart-1024x409.png” alt=“googl stock chart” width=“1024” height=“409” />
+<h2>How to get Access to Yahoo Finance API</h2>
+<h3>1. Sign Up for a RapidAPI User Account</h3>
+To begin using the Yahoo Finance API, you’ll first need to sign up for a free RapidAPI developer account.
+
+RapidAPI is the world’s largest API marketplace, with over 10,000 APIs and over 1,000,000 developers. Our goal is to help developers find and connect to APIs to help them build amazing apps.
+<h3>2. Navigate to the Yahoo Finance API Page</h3>
+Search for “Yahoo Finance” in the search bar, or click <a href=“https://rapidapi.com/apidojo/api/yh-finance”>here to get there directly</a>.
+
+<img class=“alignnone size-large wp-image-3148” src=“https://rapidapi.com/blog/wp-content/uploads/2019/09/rapidapi-search-yahoo-finance-1024x560.png” alt=“RapidAPI search for Yahoo Finance API” width=“1024” height=“560” />
+<h3>3. Subscribe to the Yahoo Finance API</h3>
+Once you have successfully navigated to the Yahoo Finance page, click on the “pricing” tab and pick a pricing plan.
+
+<em>Hint: Subscribe to the Basic Plan to get <strong>500 free requests/month</strong>.</em>
+
+<img class=“alignnone size-large wp-image-2131” src=“https://rapidapi.com/blog/wp-content/uploads/2019/01/yahoo-finance-api-1024x616.png” alt=“Yahoo Finance API on RapidAPI” width=“1024” height=“616” />
+
+Now, let’s write some code to crunch the data.
+
+<center><a class=“vce-button–style-basic vce-button–style-basic–border-round vce-button–style-basic–size-large vce-button–style-basic–color-557cbf–fff” href=“https://rapidapi.com/apidojo/api/yh-finance”>Connect to API</a></center>
+<h2>How to use the Yahoo Finance API with Python</h2>
+You will now learn how to build a stock chart app by creating a simple Python application that consumes the data from Yahoo Finance API. But before you get into the code, you must know which API endpoint to use.
+
+Take a look at the left side endpoint listing in the API console page of Yahoo Finance. You can see multiple endpoints, categorized into market and stock.
+
+<img class=“alignnone size-full wp-image-3149” src=“https://rapidapi.com/blog/wp-content/uploads/2019/09/yahoo-finance-api-endpoints.png” alt=“yahoo finance api endpoints” width=“350” height=“779” />
+
+Since our goal is to build a stock chart with historical stock quotes, you must look for API endpoints that provide <strong>historical data</strong>. A closed look at the endpoint lists reveals that the Yahoo Finance API actually provides an endpoint for creating a chart.
+
+<img class=“alignnone size-full wp-image-3150” src=“https://rapidapi.com/blog/wp-content/uploads/2019/09/yahoo-finance-api-get-charts-endpoint.png” alt=“yahoo finance api get charts endpoint” width=“336” height=“243” />
+
+Let’s test this endpoint. Invoking this API with the symbol AAPL( Apple Inc.) gives a series of data based on time range and interval.
+
+<img class=“alignnone size-large wp-image-3151” src=“https://rapidapi.com/blog/wp-content/uploads/2019/09/yahoo-finance-api-console-1024x551.png” alt=“yahoo finance api console” width=“1024” height=“551” />
+
+That’s it!
+
+This is all you need to build a basic stock chart. So the idea here is to extract the API response from the endpoint listed under market, parse it in a human-readable form and then plot it on a line chart.
+
+To call this API with Python, you can choose one of the supported Python code snippets provided in the API console. Here is an example of how to invoke the API with unirest library.
+
+<img class=“alignnone size-full wp-image-3152” src=“https://rapidapi.com/blog/wp-content/uploads/2019/09/yahoo-finance-api-python-code-snippet.png” alt=“yahoo finance api python code snippet” width=“778” height=“313” />
+
+<center><a class=“vce-button–style-basic vce-button–style-basic–border-round vce-button–style-basic–size-large vce-button–style-basic–color-557cbf–fff” href=“https://rapidapi.com/apidojo/api/yh-finance”>Connect to API</a></center>
+<h2>How to Build Your own Personalized Stock Chart with Yahoo Finance API</h2>
+Building the stock chart app is a fun and easy way to interpret data obtained from APIs. So let’s get started with the coding now. Follow along with the steps below to build your own stock chart from Yahoo Finance API using python.
+
+But first, you have to set up the programming environments with the requisite tools and libraries that we will be using in this app.
+<h3>Prerequisites</h3>
+Here is what you need in terms of the Python runtime.
+<ol>
+<li>Python 2.7</li>
+<li>Pip ( any recent version of pip that ships with Python 2.7)</li>
+</ol>
+Now, you also need to install the libraries that will be used in this app.
+<h3>Libraries</h3>
+<h4>Seaborn</h4>
+<a href=“https://seaborn.pydata.org/”>Seaborn</a> is a Python visualization library that works on top of the popular matplotlib. This will render the data and display it as a chart.
+
+To install seaborn, run the following command within your Python 2.7 runtime
+<pre class=“EnlighterJSRAW” data-enlighter-language=“python”>pip install seaborn</pre>
+<h4>Unirest</h4>
+<a href=“https://unirest.io/”>unirest</a> is a lightweight HTTP library. You will use this to invoke the Yahoo Finance API endpoints.
+
+To install the Python version of this library, invoke the pip command as follows
+<pre class=“EnlighterJSRAW” data-enlighter-language=“python”>pip install unirest</pre>
+<h4>Pandas</h4>
+<a href=“https://pandas.pydata.org/”>Pandas</a> is a data analysis library for Python. It is used to prepare and hold the time series data returned from the Yahoo FInance API. It is the default choice of data storage buffer for Seaborn.
+<pre class=“EnlighterJSRAW” data-enlighter-language=“python”>pip install pandas</pre>
+It’s a good idea to fire up your favorite Python code editor and create a new file. So follow the step by step instructions below to add the code.
+<h3>1. Import the Libraries</h3>
+First up, you need to import the python modules that are used in this app.
+
+Here is the list of all imports:
+<pre class=“EnlighterJSRAW” data-enlighter-language=“python”>import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+from datetime import datetime
+import unirest
+from matplotlib import rcParams</pre>
+You will understand the significance of each of the imported modules in the later steps. For now, let’s just moves onto the next step.
+<h3>2. Initialize the Global Data</h3>
+You need to define some global data to store configurations as well as transient data. Extend the code below the import statements with these global declarations.
+<pre class=“EnlighterJSRAW” data-enlighter-language=“python”>unirest.timeout(15) # 5s timeout
+
+RAPIDAPI_KEY = "<YOUR_RAPIDAPI_KEY>"
+RAPIDAPI_HOST = “<YOUR_RAPIDAPI_ENDPOINT>”
+
+symbol_string = ""
+inputdata = {}
+</pre>
+Don’t forget to replace the placeholders <code><YOUR_RAPIDAPI_KEY></code> and <code><YOUR_RAPIDAPI_ENDPOINT></code> with your own subscription specific values displayed on the API console.
+<h3>3. Call the API to Fetch Chart Data</h3>
+You have already tested the ‘/chats’ endpoint of the AP manually. Let’s define the API call using the Python unirest library.
+<pre class=“EnlighterJSRAW” data-enlighter-language=“null”>def fetchStockData(symbol):
+
+response = unirest.get(“https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-charts?region=US&lang=en&symbol=” + symbol + “&interval=1d&range=3mo”,
+headers={
+“X-RapidAPI-Host”: RAPIDAPI_HOST,
+“X-RapidAPI-Key”: RAPIDAPI_KEY,
+“Content-Type”: “application/json”
+}
+)
+
+if(response.code == 200):
+return response.body
+else:
+return None
+</pre>
+This API call fetches the stock quote for every single day (trading day) during the last three months, for a given stock symbol. The stock symbol is taken in as an argument and it will be taken in as user input.
+<h3>4. Parse the API Response</h3>
+This API returns a lot of data for a stock symbol. All of it is formatted as a separate time series of opening, closing, high and low figures of the stock during each day.
+
+You can choose to display them all but for the sake of keeping the chart uncluttered, we have considered only the opening and closing figure of the stock during each day.
+
+Here is how you will parse the timestamp:
+<pre class=“EnlighterJSRAW” data-enlighter-language=“null”>def parseTimestamp(inputdata):
+
+timestamplist = []
+
+timestamplist.extend(inputdata[“chart”][“result”][0][“timestamp”])
+timestamplist.extend(inputdata[“chart”][“result”][0][“timestamp”])
+
+calendertime = []
+
+for ts in timestamplist:
+dt = datetime.fromtimestamp(ts)
+calendertime.append(dt.strftime("%m/%d/%Y"))
+
+return calendertime</pre>
+You have to create the <code>timestamplist</code> twice, one for the opening figures of the stock symbol and then for the closing figures of the stock symbol.
+
+Now, for extracting the opening and closing values, here is the function to do that.
+<pre class=“EnlighterJSRAW” data-enlighter-language=“null”>def parseValues(inputdata):
+
+valueList = []
+valueList.extend(inputdata[“chart”][“result”][0][“indicators”][“quote”][0][“open”])
+valueList.extend(inputdata[“chart”][“result”][0][“indicators”][“quote”][0][“close”])
+
+return valueList</pre>
+<span style=“font-weight: 400;”>We need to have one more step to define the “open” and “close” event. Let’s define one more function for that.</span>
+<pre class=“EnlighterJSRAW” data-enlighter-language=“null”>def attachEvents(inputdata):
+
+eventlist = []
+
+for i in range(0,len(inputdata[“chart”][“result”][0][“timestamp”])):
+eventlist.append(“open”)
+
+for i in range(0,len(inputdata[“chart”][“result”][0][“timestamp”])):
+eventlist.append(“close”)
+
+return eventlist</pre>
+With this, you have all the parsing routines for arranging the data in a form suitable for charting.
+<h3>5. Extract and prepare the data in a Pandas Dataframe</h3>
+You can now extend the Python program to define the main block. At first, you will take the user input for the stock symbol and call all the routines described above to extract the data and prepare it in a Pandas Dataframe.
+<pre class=“EnlighterJSRAW” data-enlighter-language=“null”>while len(symbol_string) <= 2:
+
+    symbol_string = raw_input("Enter the stock symbol: ")
+retdata = fetchStockData(symbol_string)
+
+if (None != inputdata):
+
+    inputdata["Timestamp"] = parseTimestamp(retdata)
+
+    inputdata["Values"] = parseValues(retdata)
+
+    inputdata["Events"] = attachEvents(retdata)
+
+    df = pd.DataFrame(inputdata)</pre>
+The Pandas Dataframe structure is somewhat like this sample format:
+<table>
+<tbody>
+<tr>
+<th>Timestamp</th>
+<th>Values</th>
+<th>Events</th>
+</tr>
+<tr>
+<td>06/26/2019</td>
+<td>23.4</td>
+<td>open</td>
+</tr>
+<tr>
+<td>06/27/2019</td>
+<td>24.7</td>
+<td>open</td>
+</tr>
+<tr>
+<td>06/26/2019</td>
+<td>23.23</td>
+<td>close</td>
+</tr>
+</tbody>
+</table>
+Did you get the idea? The <em>Timestamp</em> contains the date for which the stock values are fetched. <em>Values</em> indicate the actual price and <em>Events</em> indicates whether it is the opening price or the closing price.
+<h3>6. Plot the Chart</h3>
+The Seaborn takes in the Pandas data frame as the input for the chart. You just have to define the charting call from the SDK and pass on the styling attributes for displaying the axis and labels.
+<pre class=“EnlighterJSRAW” data-enlighter-language=“python”>sns.set(style=“darkgrid”)
+
+rcParams[‘figure.figsize’] = 13,5
+rcParams[‘figure.subplot.bottom’] = 0.2
+
+ax = sns.lineplot(x=“Timestamp”, y=“Values”, hue=“Events”,dashes=False, markers=True,
+data=df, sort=False)
+
+ax.set_title('Symbol: ’ + symbol_string)
+
+plt.xticks(
+rotation=45,
+horizontalalignment=‘right’,
+fontweight=‘light’,
+fontsize=‘xx-small’
+)
+
+plt.show()
+</pre>
+You have to use the <code>linplot()</code> call to Seaborn for rending the chart as a line graph. Check the <a href=“https://seaborn.pydata.org/generated/seaborn.lineplot.html#seaborn.lineplot”>API reference for lineplot( ) function</a> to understand how to use it.
+
+You are now done. Here is the complete program in case you want to refer to it.
+<pre class=“EnlighterJSRAW” data-enlighter-language=“null”>import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+from datetime import datetime
+import unirest
+from matplotlib import rcParams
+
+unirest.timeout(15) # 5s timeout
+
+RAPIDAPI_KEY = "<YOUR_RAPIDAPI_KEY>"
+RAPIDAPI_HOST = “<YOUR_RAPIDAPI_ENDPOINT>”
+
+symbol_string = ""
+inputdata = {}
+
+def fetchStockData(symbol):
+
+response = unirest.get(“https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-charts?region=US&lang=en&symbol=” + symbol + “&interval=1d&range=3mo”,
+headers={
+“X-RapidAPI-Host”: RAPIDAPI_HOST,
+“X-RapidAPI-Key”: RAPIDAPI_KEY,
+“Content-Type”: “application/json”
+}
+)
+
+if(response.code == 200):
+return response.body
+else:
+return None
+
+def parseTimestamp(inputdata):
+
+timestamplist = []
+
+timestamplist.extend(inputdata[“chart”][“result”][0][“timestamp”])
+timestamplist.extend(inputdata[“chart”][“result”][0][“timestamp”])
+
+calendertime = []
+
+for ts in timestamplist:
+dt = datetime.fromtimestamp(ts)
+calendertime.append(dt.strftime("%m/%d/%Y"))
+
+return calendertime
+
+def parseValues(inputdata):
+
+valueList = []
+valueList.extend(inputdata[“chart”][“result”][0][“indicators”][“quote”][0][“open”])
+valueList.extend(inputdata[“chart”][“result”][0][“indicators”][“quote”][0][“close”])
+
+return valueList
+
+def attachEvents(inputdata):
+
+eventlist = []
+
+for i in range(0,len(inputdata[“chart”][“result”][0][“timestamp”])):
+eventlist.append(“open”)
+
+for i in range(0,len(inputdata[“chart”][“result”][0][“timestamp”])):
+eventlist.append(“close”)
+
+return eventlist
+
+if name == “main”:
+
+try:
+
+while len(symbol_string) &lt;= 2:
+  symbol_string = raw_input("Enter the stock symbol: ")
+
+retdata = fetchStockData(symbol_string)
+
+
+
+if (None != inputdata): 
+
+  inputdata["Timestamp"] = parseTimestamp(retdata)
+
+  inputdata["Values"] = parseValues(retdata)
+
+  inputdata["Events"] = attachEvents(retdata)
+
+  df = pd.DataFrame(inputdata)
+
+  sns.set(style="darkgrid")
+
+  rcParams['figure.figsize'] = 13,5
+  rcParams['figure.subplot.bottom'] = 0.2
+
+  
+  ax = sns.lineplot(x="Timestamp", y="Values", hue="Events",dashes=False, markers=True, 
+               data=df, sort=False)
+
+
+  ax.set_title('Symbol: ' + symbol_string)
+  
+  plt.xticks(
+      rotation=45, 
+      horizontalalignment='right',
+      fontweight='light',
+      fontsize='xx-small'  
+  )
+
+  plt.show()
+except Exception as e:
+print “Error” 
+print e</pre>
+<h3>Check Out Your Favorite Stocks</h3>
+The program is now ready, so why not take it on a test drive. Replace the placeholders with your RapidAPI specific subscription values and you are all set to try it out.
+
+Here is a test run to chart the stock performance for Apple Inc. (Stock Symbol: AAPL)
+
+[video width=“1796” height=“1080” mp4=“https://rapidapi.com/blog/wp-content/uploads/2019/09/yahoo-finance-python-chart.mp4”][/video]
+
+<center><a class=“vce-button–style-basic vce-button–style-basic–border-round vce-button–style-basic–size-large vce-button–style-basic–color-557cbf–fff” href=“https://rapidapi.com/apidojo/api/yh-finance”>Connect to API</a></center>
+<h2>Wrapping Up</h2>
+Visualizations are a great way to consume data and this blog post shows you how to do it. But you have got the idea now, so why not explore more. Check out the <a href=“https://seaborn.pydata.org/api.html”>complete documentation of Seaborn</a> and you will get more ideas. Also, you can check out the individual stock endpoints of Yahoo Finance API to get more granular data about companies.
+
+We wish you good luck with your data exploration endeavors and hope to see some magnificent visualizations powered by RapidAPI.
+<h2>Related Stock and Finance APIs</h2>
+<ul>
+<li><a href=“https://rapidapi.com/integraatio/api/morningstar1”>Morningstar</a> - Query major exchanges for common stock fundamentals, splits, dividends, daily prices and assorted metadata as per the Morningstar website.</li>
+<li><a href=“https://rapidapi.com/brianiswu/api/quandl1”>Quandl</a> - The premier source for financial, economic, and alternative datasets, serving investment professionals. Quandl’s platform is used by over 400,000 people, including analysts from the world’s top hedge funds, asset managers and investment banks.</li>
+<li><a href=“https://rapidapi.com/eec19846/api/investors-exchange-iex-trading”>Investor Exchange (IEX) Trading</a> - The IEX API is a is a free, web-based API supplying IEX quoting and trading data.</li>
+</ul>
+<h2>Related Reading</h2>
+<ul>
+<li><a href=“https://rapidapi.com/blog/python-django-rest-api-tutorial/”>Python Django API Tutorial</a></li>
+<li><a href=“https://rapidapi.com/blog/imdb-api-python/”>IMDb API Python</a></li>
+<li><a href=“https://rapidapi.com/blog/python-sms-api/”>Send SMS with Python & Flask</a></li>
+<li><a href=“https://rapidapi.com/blog/how-to-build-an-api-in-python/”>Build API with Python & Flask</a></li>
+<li><a href=“https://rapidapi.com/blog/how-to-use-an-api-with-python/”>How to use an API with Python</a></li>
+</ul>
