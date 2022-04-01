@@ -4,7 +4,7 @@ import requests
 import json
 url = "https://yh-finance.p.rapidapi.com/market/v2/get-quotes"
 
-querystring = {"region":"US","symbols":"AAPL"}
+querystring = {"region":"US","symbols":"NKE"}
 
 headers = {
 	"X-RapidAPI-Host": "yh-finance.p.rapidapi.com",
@@ -12,7 +12,8 @@ headers = {
 }
 
 response = requests.request("GET", url, headers=headers, params=querystring)
-response_data = json_loads(response.text)
+response_data = json.loads(response.text)
 #print(current['quoteResponse']['result']['0']['language'])
-print("----------------------------------")
+print(response_data['quoteResponse']['result'][0]['postMarketPrice'])
+#response_data.type()
 #print(response.text)
