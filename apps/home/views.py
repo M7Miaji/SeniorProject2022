@@ -12,6 +12,8 @@ from django.shortcuts import render
 import feedparser
 import webbrowser
 from django.template.defaulttags import register
+from .yahoo_api import get_quotes
+
 
 # The feedparser that will get the application from the web 
 feed = feedparser.parse("https://www.cnbc.com/id/20409666/device/rss/rss.html?x=1")
@@ -53,8 +55,9 @@ def pages(request):
             return HttpResponse(html_template.render(context, request))
 
         elif load_template == 'index3 copy.html':
+            data = get_quotes("NKE")
             context = {
-                "data": [22.5, 12, 18230.00, 33.1, 13, 12, 15, 29, 0.5, 28.2, 1230, 3, 1199, 199, 63, 352, 12, 0.8, 1],
+                "data": [data['quoteResponse']['result'][0]['regularMarketOpen'], 12, 18230.00, 33.1, 13, 12, 15, 29, 0.5, 28.2, 1230, 3, 1199, 199, 63, 352, 12, 0.8, 1],
             }
             if load_template == 'admin':
                 return HttpResponseRedirect(reverse('admin:index'))
