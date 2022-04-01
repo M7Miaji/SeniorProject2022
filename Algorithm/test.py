@@ -1,14 +1,27 @@
-import requests
+# How to Get a List of all NASDAQ Securities as CSV file using Python?
+# +tested in Python 3.5.0b2
+#
+# (c) 2015 QuantAtRisk.com, by Pawel Lachowicz
 
-url = "https://bb-finance.p.rapidapi.com/stock/get-statistics"
+import os
 
-querystring = {"id":"aapl:us","template":"STOCK"}
+os.system("curl --ftp-ssl anonymous:jupi@jupi.com "
+          "ftp://ftp.nasdaqtrader.com/SymbolDirectory/nasdaqlisted.txt "
+          "> nasdaq.lst")
 
-headers = {
-    'x-rapidapi-host': "bb-finance.p.rapidapi.com",
-    'x-rapidapi-key': "b7e609f330msh515f9ad6685d6b9p101692jsn4be47c1196cc"
-    }
+os.system("head -20 nasdaq.lst")
+print()
 
-response = requests.request("GET", url, headers=headers, params=querystring)
+os.system("tail -5 nasdaq.lst")
+print()
 
-print(response.text)
+os.system("tail -n +9 nasdaq.lst | cat | sed '$d' | sed 's/|/ /g' > "
+          "nasdaq.lst2")
+
+os.system("awk '{print $1}' nasdaq.lst2 > nasdaq.csv")
+os.system("echo; head nasdaq.csv; echo '...'; tail nasdaq.csv")
+
+import pandas as pd
+data = pd.read_csv("nasdaq.csv", index_col=None, header=None)
+data.columns=["Ticker"]
+print(data)

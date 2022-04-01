@@ -20,3 +20,5 @@ def get_quotes(stock_name):
 #print(get_quotes("NKE")['quoteResponse']['result'][0]['postMarketPrice'])
 #response_data.type()
 #print(response.text)
+
+print(get_quotes('AAIT,AAL,AAME,AAOI,AAON,AAPC,AAPL,AAVL,AAWW,AAXJ,ZNGA,ZNWAA,ZSAN,ZSPH,ZU,ZUMZ,ZVZZT,ZWZZT,ZXZZT'))
