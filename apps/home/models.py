@@ -15,5 +15,10 @@ class Stock(models.Model):
    StockName=models.CharField(max_length=100)
    
 
-    
+class My_Transaction(models.Model):
+    mode=models.CharField(max_length=20)
+    company=models.CharField(max_length=50)
+    industry=models.CharField(max_length=50)
+    history=models.CharField(max_length=200)
+    profit_loss=models.IntegerField()
 

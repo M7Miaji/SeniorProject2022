@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+
+<body>
+<h1>HOME</h1>
+
+<table>
+    <tr>
+      <th>Mode</th>
+      <th>Company</th>
+      <th>Industry</th>
+      <th>History of Transaction</th>
+      <th>Profit/Loss</th>
+      
+    </tr>
+    {% for item in query_results %}
+        <tr> 
+            <td>{{ item.tran_mode }}</td>
+            <td>{{ item.tran_company }}</td>
+            <td>{{ item.tran_industry }}</td>
+            <td>{{ item.tran_history }}</td>
+            <td>{{ item.tran_profit_loss }}</td>
+            
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
+
+

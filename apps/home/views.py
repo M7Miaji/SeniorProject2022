@@ -13,7 +13,8 @@ import feedparser
 import webbrowser
 from django.template.defaulttags import register
 from .yahoo_api import get_quotes
-
+from django.shortcuts import render
+from .models import My_Transaction
 
 # The feedparser that will get the application from the web 
 feed = feedparser.parse("https://www.cnbc.com/id/20409666/device/rss/rss.html?x=1")
@@ -106,3 +107,29 @@ def feedparser():
 @register.filter
 def get_value(dictionary, key):
     return dictionary.get(key)
+
+
+# Assuming the data to be entered is presnet in these lists
+tran_mode = ['Automatic', 'Manual']
+tran_company = ['Apple', 'Amazon']
+tran_industry = ['Tech', 'Books']
+tran_history = ['Trending Algorithm', 'Mean Algorithm']
+tran_profit_loss = [20, 15]
+
+def my_view(request, *args, **kwargs):
+    
+    # Iterate through all the data items
+    for i in range(len(tran_mode)):
+
+        # Insert in the database
+        My_Transaction.objects.create(Mode = tran_mode[i], Company = tran_company[i], Industry = tran_industry[i], History = tran_history[i], Profit_Loss = tran_profit_loss[i])
+
+
+    # Getting all the stuff from database
+    query_results = My_Transaction.objects.all()
+
+    # Creating a dictionary to pass as an argument
+    context = { 'query_results' : query_results }
+
+    # Returning the rendered html
+    return render(request, "home.html", context)
