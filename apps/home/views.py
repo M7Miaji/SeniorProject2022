@@ -45,7 +45,7 @@ def pages(request):
             html_template = loader.get_template('home/' + load_template)
             return HttpResponse(html_template.render(context, request))
             
-        elif load_template == 'tables-data.html': # My Transaction ----------------------------------------------------------
+        elif load_template == 'tables-data.html': # My Transaction ADD POST----------------------------------------------------------
             context = {
                 "data": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             }
@@ -56,7 +56,7 @@ def pages(request):
             return HttpResponse(html_template.render(context, request))
 
         elif load_template == 'index3 copy.html':
-            data = get_quotes("NKE")
+            data = get_quotes("AAPL")
             context = {
                 "data": [data['quoteResponse']['result'][0]['regularMarketPrice'], data['quoteResponse']['result'][0]['regularMarketChangePercent'], data['quoteResponse']['result'][0]['marketCap'], 33.1, data['quoteResponse']['result'][0]['trailingPE'], 12, 15, data['quoteResponse']['result'][0]['priceToSales'], 0.5, 28.2, data['quoteResponse']['result'][0]['revenue'], 3, 1199, data['quoteResponse']['result'][0]['pegRatio'], 63, 352, 12, 0.8, 1],
             }
