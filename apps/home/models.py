@@ -22,3 +22,14 @@ class My_Transaction(models.Model):
     history=models.CharField(max_length=200)
     profit_loss=models.IntegerField()
 
+
+class Configuration(models.Model):
+    mode=models.CharField(max_length=20)
+    industry=models.CharField(max_length=50)
+    algorithm=models.CharField(max_length=50)
+    risk_percentage=models.IntegerField()
+    diversity=models.IntegerField()
+    max_buy=models.IntegerField()
+    min_traded=models.IntegerField()
+    max_traded=models.IntegerField()
+    username=models.CharField(max_length=50)
