@@ -63,15 +63,14 @@
                   </tr>
                   </thead>
                   <tbody>
-                    {% for i in data %}
+                    {% for i in all_data %}
                     <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
+                      <td>{{ i.mode}}</td>
+                      <td>{{ i.company}}
                       </td>
-                      <td>Win 95+</td>
-                      <td> 4</td>
-                      <td>X</td>
+                      <td>{{ i.industry}}</td>
+                      <td>{{ i.history}}</td>
+                      <td>{{ i.profit_loss}}</td>
                     </tr>
                     {% endfor %}
                     <!--

@@ -44,35 +44,25 @@ def pages(request):
             #context['segment'] = load_template
             context = feedparser()
             html_template = loader.get_template('home/' + load_template)
+    
             return HttpResponse(html_template.render(context, request))
             
-        elif load_template == 'configuration.html': # My Transaction ADD POST----------------------------------------------------------
+        elif load_template == 'configuration.html':
             context = {}
             if load_template == 'admin':
                 return HttpResponseRedirect(reverse('admin:index'))
             #context['segment'] = load_template
             html_template = loader.get_template('home/' + load_template)
-
             if request.method == 'POST':
-                '''mode_ = request.method['mode']
-                industry_ = request.method['industry']
-                algorithm_ = request.method['algorithm']
-                risk_percentage_ = request.method['risk_percentage']
-                diversity_ = request.method['diversity']
-                max_buy_ = request.method['max_buy']
-                min_traded_ = request.method['min_traded']
-                max_traded_ = request.method['max_traded']
-                username_ = request.method['username']'''
-
-                mode_ = 'Automatic'
-                industry_ = 'Cars'
-                algorithm_ = 'Mean'
-                risk_percentage_ = '12%' 
-                diversity_ = '1-2'
-                max_buy_ = 1200
-                min_traded_ = 10
-                max_traded_ = 23
-                username_ = 'admin'
+                mode_ = request.POST['mode']
+                industry_ = request.POST['industry']
+                algorithm_ = request.POST['algorithm']
+                risk_percentage_ = request.POST['risk_percentage']
+                diversity_ = request.POST['diversity']
+                max_buy_ = request.POST['max_buy']
+                min_traded_ = request.POST['min_traded']
+                max_traded_ = request.POST['max_traded']
+                username_ = request.POST['username']
 
                 new_config = Configuration(mode=mode_, industry=industry_, algorithm=algorithm_, risk_percentage=risk_percentage_, diversity=diversity_, max_buy=max_buy_, min_traded=min_traded_, max_traded=max_traded_, username=username_)
                 new_config.save()
@@ -87,6 +77,10 @@ def pages(request):
                 return HttpResponseRedirect(reverse('admin:index'))
             #context['segment'] = load_template
             html_template = loader.get_template('home/' + load_template)
+
+            all_data = My_Transaction.objects.all()
+            for i in all_data:
+                print(i.mode)
             return HttpResponse(html_template.render(context, request))
 
         elif load_template == 'index3 copy.html':

@@ -21,6 +21,7 @@ class My_Transaction(models.Model):
     industry=models.CharField(max_length=50)
     history=models.CharField(max_length=200)
     profit_loss=models.IntegerField()
+    username=models.CharField(max_length=50)
 
 
 class Configuration(models.Model):
