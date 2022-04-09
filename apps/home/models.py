@@ -16,12 +16,14 @@ class Stock(models.Model):
    
 
 class My_Transaction(models.Model):
+    hash=models.BigIntegerField(max_length=100000)
     mode=models.CharField(max_length=20)
     company=models.CharField(max_length=50)
     industry=models.CharField(max_length=50)
     history=models.CharField(max_length=200)
     profit_loss=models.IntegerField()
     username=models.CharField(max_length=50)
+    
 
 
 class Configuration(models.Model):

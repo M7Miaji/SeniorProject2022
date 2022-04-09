@@ -67,13 +67,15 @@
                   <tbody>
                     {% for i in all_data %}
                     <tr>
-
+                      <td>{{ i.hash}}</td>
                       <td>{{ i.mode}}</td>
                       <td>{{ i.company}}
                       </td>
                       <td>{{ i.industry}}</td>
                       <td>{{ i.history}}</td>
                       <td>{{ i.profit_loss}}</td>
+                      <td>{{ button}}</td>
+                      
                       
                     </tr>
                     {% endfor %}
