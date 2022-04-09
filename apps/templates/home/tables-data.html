@@ -67,14 +67,26 @@
                   <tbody>
                     {% for i in all_data %}
                     <tr>
-                      <td>{{ i.hash}}</td>
+                      <td>{{ i.id}}</td>
                       <td>{{ i.mode}}</td>
                       <td>{{ i.company}}
                       </td>
                       <td>{{ i.industry}}</td>
                       <td>{{ i.history}}</td>
                       <td>{{ i.profit_loss}}</td>
-                      <td>{{ button}}</td>
+                      <td><div class="form-popup" id="myForm">
+                        <form action="/action_page.php" class="form-container">
+                          <h1>feedback</h1>
+                      
+                          <label for="feedback"><b>feedback</b></label>
+                          <input type="text" placeholder="Write your feedback" name="feedback" required>
+                      
+                          
+                      
+                          <button type="submit" class="btn">Login</button>
+                          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                        </form>
+                      </div></td>
                       
                       
                     </tr>
