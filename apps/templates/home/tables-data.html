@@ -18,6 +18,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="/static/assets/css/adminlte.min.css">
 
+
 {% endblock stylesheets %}
 
 {% block content %} 
@@ -74,7 +75,8 @@
                       <td>{{ i.industry}}</td>
                       <td>{{ i.history}}</td>
                       <td>{{ i.profit_loss}}</td>
-                      <td><div class="form-popup" id="myForm">
+                      <div class="form-popup" id="myForm">
+                        <td>
                         <form action="/action_page.php" class="form-container">
                           <h1>feedback</h1>
                       
@@ -83,14 +85,22 @@
                       
                           
                       
-                          <button type="submit" class="btn">Login</button>
+                          <button type="submit" class="btn">Send</button>
                           <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                         </form>
-                      </div></td>
+                      </td></div>
                       
                       
                     </tr>
+                    
                     {% endfor %}
+                    <script>
+                      function openForm() {
+                                   document.getElementById("myForm").style.display = "block";}
+
+                      function closeForm() {
+                                   document.getElementById("myForm").style.display = "none";}
+                    </script>
                     <!--
                   <tr>
                     <td>Trident</td>
