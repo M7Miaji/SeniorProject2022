@@ -55,22 +55,26 @@
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
+                    <th>#</th>
                     <th>Mode</th>
                     <th>Company</th>
                     <th>Industry</th>
                     <th>History of Transaction</th>
                     <th>Profit/Loss</th>
+                    <th>Feedback</th>
                   </tr>
                   </thead>
                   <tbody>
                     {% for i in all_data %}
                     <tr>
+
                       <td>{{ i.mode}}</td>
                       <td>{{ i.company}}
                       </td>
                       <td>{{ i.industry}}</td>
                       <td>{{ i.history}}</td>
                       <td>{{ i.profit_loss}}</td>
+                      
                     </tr>
                     {% endfor %}
                     <!--
