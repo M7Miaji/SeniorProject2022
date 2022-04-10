@@ -1,165 +1,568 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Dashboard {% endblock %} 
+{% block title %} Dashboard {% endblock %}
 
 <!-- Element injected in the BODY element -->
-{% block body_class %} sidebar-mini {% endblock body_class %} 
+{% block body_class %} sidebar-mini {% endblock body_class %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="/static/assets/plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="/static/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="/static/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="/static/assets/plugins/jqvmap/jqvmap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/static/assets/css/adminlte.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="/static/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="/static/assets/plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="/static/assets/plugins/summernote/summernote-bs4.min.css">
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="/static/assets/plugins/fontawesome-free/css/all.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Tempusdominus Bootstrap 4 -->
+<link rel="stylesheet" href="/static/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- iCheck -->
+<link rel="stylesheet" href="/static/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- JQVMap -->
+<link rel="stylesheet" href="/static/assets/plugins/jqvmap/jqvmap.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="/static/assets/css/adminlte.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="/static/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<!-- Daterange picker -->
+<link rel="stylesheet" href="/static/assets/plugins/daterangepicker/daterangepicker.css">
+<!-- summernote -->
+<link rel="stylesheet" href="/static/assets/plugins/summernote/summernote-bs4.min.css">
 
 {% endblock stylesheets %}
 
 {% block content %}
-  
-  <div class="content-wrapper">
 
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+<div class="content-wrapper">
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>150</h3>
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Dashboard</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
 
-                <p>Configuration</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="/forms-general copy.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>150</h3>
+
+              <p>Configuration</p>
             </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                <p>Stock Information</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="/index3 copy.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <div class="icon">
+              <i class="ion ion-bag"></i>
             </div>
+            <a href="/forms-general copy.html" class="small-box-footer">More info <i
+                class="fas fa-arrow-circle-right"></i></a>
           </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
-
-                <p>My Transactions</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="/tables-data.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-
-                <p>News</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="/examples-project-detail.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
         </div>
-        <!-- /.row -->
-        <!-- Main row -->
-        <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-chart-pie mr-1"></i>
-                  Stock Market Movement
-                </h3>
-                <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                    </li>
-                  </ul>
-                </div>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                        style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                    </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+              <p>Stock Information</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="/index3 copy.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-warning">
+            <div class="inner">
+              <h3>44</h3>
+
+              <p>My Transactions</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+            <a href="/tables-data.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-danger">
+            <div class="inner">
+              <h3>65</h3>
+
+              <p>News</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="/examples-project-detail.html" class="small-box-footer">More info <i
+                class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- ***************** **************** ****************** ******************* start 1-->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Monthly Recap Report</h5>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-wrench"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <a href="#" class="dropdown-item">Action</a>
+                    <a href="#" class="dropdown-item">Another action</a>
+                    <a href="#" class="dropdown-item">Something else here</a>
+                    <a class="dropdown-divider"></a>
+                    <a href="#" class="dropdown-item">Separated link</a>
                   </div>
                 </div>
-              </div><!-- /.card-body -->
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
             </div>
-            <!-- /.card -->
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-8">
+                  <p class="text-center">
+                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+                  </p>
 
-            <!-- DIRECT CHAT -->
-            <div class="card direct-chat direct-chat-primary">
-              <!--<div class="card-header">
+                  <div class="chart">
+                    <!-- Sales Chart Canvas -->
+                    <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
+                  </div>
+                  <!-- /.chart-responsive -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                  <p class="text-center">
+                    <strong>Goal Completion</strong>
+                  </p>
+
+                  <div class="progress-group">
+                    Add Products to Cart
+                    <span class="float-right"><b>160</b>/200</span>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-primary" style="width: 80%"></div>
+                    </div>
+                  </div>
+                  <!-- /.progress-group -->
+
+                  <div class="progress-group">
+                    Complete Purchase
+                    <span class="float-right"><b>310</b>/400</span>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-danger" style="width: 75%"></div>
+                    </div>
+                  </div>
+
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    <span class="progress-text">Visit Premium Page</span>
+                    <span class="float-right"><b>480</b>/800</span>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-success" style="width: 60%"></div>
+                    </div>
+                  </div>
+
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    Send Inquiries
+                    <span class="float-right"><b>250</b>/500</span>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-warning" style="width: 50%"></div>
+                    </div>
+                  </div>
+                  <!-- /.progress-group -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- ./card-body -->
+            <div class="card-footer">
+              <div class="row">
+                <div class="col-sm-3 col-6">
+                  <div class="description-block border-right">
+                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
+                    <h5 class="description-header">$35,210.43</h5>
+                    <span class="description-text">TOTAL REVENUE</span>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-3 col-6">
+                  <div class="description-block border-right">
+                    <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
+                    <h5 class="description-header">$10,390.90</h5>
+                    <span class="description-text">TOTAL COST</span>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-3 col-6">
+                  <div class="description-block border-right">
+                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
+                    <h5 class="description-header">$24,813.53</h5>
+                    <span class="description-text">TOTAL PROFIT</span>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-3 col-6">
+                  <div class="description-block">
+                    <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>
+                    <h5 class="description-header">1200</h5>
+                    <span class="description-text">GOAL COMPLETIONS</span>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.card-footer -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- ***************** **************** ****************** ******************* end 1 -->
+
+      <!-- ***************** **************** ****************** ******************* start 2-->
+      <!-- Main row -->
+      <div class="row">
+        <!-- Left col -->
+        <div class="col-md-8">
+          <!-- MAP & BOX PANE -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">US-Visitors Report</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+              <div class="d-md-flex">
+                <div class="p-1 flex-fill" style="overflow: hidden">
+                  <!-- Map will be created here -->
+                  <div id="world-map-markers" style="height: 325px; overflow: hidden">
+                    <div class="map"></div>
+                  </div>
+                </div>
+                <div class="card-pane-right bg-success pt-2 pb-2 pl-4 pr-4">
+                  <div class="description-block mb-4">
+                    <div class="sparkbar pad" data-color="#fff">90,70,90,70,75,80,70</div>
+                    <h5 class="description-header">8390</h5>
+                    <span class="description-text">Visits</span>
+                  </div>
+                  <!-- /.description-block -->
+                  <div class="description-block mb-4">
+                    <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
+                    <h5 class="description-header">30%</h5>
+                    <span class="description-text">Referrals</span>
+                  </div>
+                  <!-- /.description-block -->
+                  <div class="description-block">
+                    <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
+                    <h5 class="description-header">70%</h5>
+                    <span class="description-text">Organic</span>
+                  </div>
+                  <!-- /.description-block -->
+                </div><!-- /.card-pane-right -->
+              </div><!-- /.d-md-flex -->
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+          <div class="row">
+            <div class="col-md-6">
+
+              <!-- ***************** direct chat *******************-->
+
+              <!-- ***************** direct chat *******************-->
+
+            </div>
+            <!-- /.col -->
+
+            <!-- ***************** lastest members *******************-->
+
+            <!-- ***************** lastest members *******************-->
+
+          </div>
+          <!-- /.row -->
+
+          <!-- TABLE: LATEST ORDERS -->
+          <div class="card">
+            <div class="card-header border-transparent">
+              <h3 class="card-title">Latest Orders</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table m-0">
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Item</th>
+                      <th>Status</th>
+                      <th>Popularity</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><a href="pages/examples/invoice.html">OR9842</a></td>
+                      <td>Call of Duty IV</td>
+                      <td><span class="badge badge-success">Shipped</span></td>
+                      <td>
+                        <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="pages/examples/invoice.html">OR1848</a></td>
+                      <td>Samsung Smart TV</td>
+                      <td><span class="badge badge-warning">Pending</span></td>
+                      <td>
+                        <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="pages/examples/invoice.html">OR7429</a></td>
+                      <td>iPhone 6 Plus</td>
+                      <td><span class="badge badge-danger">Delivered</span></td>
+                      <td>
+                        <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="pages/examples/invoice.html">OR7429</a></td>
+                      <td>Samsung Smart TV</td>
+                      <td><span class="badge badge-info">Processing</span></td>
+                      <td>
+                        <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="pages/examples/invoice.html">OR1848</a></td>
+                      <td>Samsung Smart TV</td>
+                      <td><span class="badge badge-warning">Pending</span></td>
+                      <td>
+                        <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="pages/examples/invoice.html">OR7429</a></td>
+                      <td>iPhone 6 Plus</td>
+                      <td><span class="badge badge-danger">Delivered</span></td>
+                      <td>
+                        <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="pages/examples/invoice.html">OR9842</a></td>
+                      <td>Call of Duty IV</td>
+                      <td><span class="badge badge-success">Shipped</span></td>
+                      <td>
+                        <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.table-responsive -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+              <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
+              <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+            </div>
+            <!-- /.card-footer -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-4">
+          <!-- Info Boxes Style 2 -->
+          <div class="info-box mb-3 bg-warning">
+            <span class="info-box-icon"><i class="fas fa-tag"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Inventory</span>
+              <span class="info-box-number">5,200</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+          <div class="info-box mb-3 bg-success">
+            <span class="info-box-icon"><i class="far fa-heart"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Mentions</span>
+              <span class="info-box-number">92,050</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+          <div class="info-box mb-3 bg-danger">
+            <span class="info-box-icon"><i class="fas fa-cloud-download-alt"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Downloads</span>
+              <span class="info-box-number">114,381</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+          <div class="info-box mb-3 bg-info">
+            <span class="info-box-icon"><i class="far fa-comment"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Direct Messages</span>
+              <span class="info-box-number">163,921</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Browser Usage</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="chart-responsive">
+                    <canvas id="pieChart" height="150"></canvas>
+                  </div>
+                  <!-- ./chart-responsive -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                  <ul class="chart-legend clearfix">
+                    <li><i class="far fa-circle text-danger"></i> Chrome</li>
+                    <li><i class="far fa-circle text-success"></i> IE</li>
+                    <li><i class="far fa-circle text-warning"></i> FireFox</li>
+                    <li><i class="far fa-circle text-info"></i> Safari</li>
+                    <li><i class="far fa-circle text-primary"></i> Opera</li>
+                    <li><i class="far fa-circle text-secondary"></i> Navigator</li>
+                  </ul>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer bg-white p-0">
+              <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    United States of America
+                    <span class="float-right text-danger">
+                      <i class="fas fa-arrow-down text-sm"></i>
+                      12%</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    India
+                    <span class="float-right text-success">
+                      <i class="fas fa-arrow-up text-sm"></i> 4%
+                    </span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    China
+                    <span class="float-right text-warning">
+                      <i class="fas fa-arrow-left text-sm"></i> 0%
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!-- /.footer -->
+          </div>
+          <!-- /.card -->
+
+          <!-- ************************ ********************** Recently Added Products -->
+
+          <!-- ************************ *********************** Recently Added Products -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!--************ ******************* **************************** END 2 ****-->
+
+
+
+      <!-- Main row -->
+      <div class="row">
+        <!-- Left col -->
+        <section class="col-lg-7 connectedSortable">
+          <!--************ ******************* **************************** Stock Market Movement -->
+
+          <!--************ ******************* **************************** Stock Market Movement -->
+
+          <!-- DIRECT CHAT -->
+          <div class="card direct-chat direct-chat-primary">
+            <!--<div class="card-header">
                 <h3 class="card-title">Direct Chat</h3>
 
                 <div class="card-tools">
@@ -351,239 +754,26 @@
             </div>-->
             <!--/.direct-chat -->
 
-            <!-- TO DO List -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="ion ion-clipboard mr-1"></i>
-                  To Do List
-                </h3>
+            <!-- ****************************************** **************************** to do list-->
 
-                <div class="card-tools">
-                  <ul class="pagination pagination-sm">
-                    <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
-                  </ul>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <ul class="todo-list" data-widget="todo-list">
-                  <li>
-                    <!-- drag handle -->
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
-                    <!-- checkbox -->
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo1" id="todoCheck1">
-                      <label for="todoCheck1"></label>
-                    </div>
-                    <!-- todo text -->
-                    <span class="text">Design a nice theme</span>
-                    <!-- Emphasis label -->
-                    <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
-                    <!-- General tools such as edit or delete-->
-                    <div class="tools">
-                      <i class="fas fa-edit"></i>
-                      <i class="fas fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
-                      <label for="todoCheck2"></label>
-                    </div>
-                    <span class="text">Make the theme responsive</span>
-                    <small class="badge badge-info"><i class="far fa-clock"></i> 4 hours</small>
-                    <div class="tools">
-                      <i class="fas fa-edit"></i>
-                      <i class="fas fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo3" id="todoCheck3">
-                      <label for="todoCheck3"></label>
-                    </div>
-                    <span class="text">Let theme shine like a star</span>
-                    <small class="badge badge-warning"><i class="far fa-clock"></i> 1 day</small>
-                    <div class="tools">
-                      <i class="fas fa-edit"></i>
-                      <i class="fas fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo4" id="todoCheck4">
-                      <label for="todoCheck4"></label>
-                    </div>
-                    <span class="text">Let theme shine like a star</span>
-                    <small class="badge badge-success"><i class="far fa-clock"></i> 3 days</small>
-                    <div class="tools">
-                      <i class="fas fa-edit"></i>
-                      <i class="fas fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo5" id="todoCheck5">
-                      <label for="todoCheck5"></label>
-                    </div>
-                    <span class="text">Check your messages and notifications</span>
-                    <small class="badge badge-primary"><i class="far fa-clock"></i> 1 week</small>
-                    <div class="tools">
-                      <i class="fas fa-edit"></i>
-                      <i class="fas fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo6" id="todoCheck6">
-                      <label for="todoCheck6"></label>
-                    </div>
-                    <span class="text">Let theme shine like a star</span>
-                    <small class="badge badge-secondary"><i class="far fa-clock"></i> 1 month</small>
-                    <div class="tools">
-                      <i class="fas fa-edit"></i>
-                      <i class="fas fa-trash-o"></i>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add item</button>
-              </div>
-            </div>
-            <!-- /.card -->
-          </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-5 connectedSortable">
+            <!-- ****************************************** **************************** to do list-->
+        </section>
+        <!-- /.Left col -->
+        <!-- right col (We are only adding the ID to make the widgets sortable)-->
+        <section class="col-lg-5 connectedSortable">
 
-            <!-- Map card -->
-            <div class="card bg-gradient-primary">
-              <div class="card-header border-0">
-                <h3 class="card-title">
-                  <i class="fas fa-map-marker-alt mr-1"></i>
-                  Stocks by State
-                </h3>
-                <!-- card tools -->
-                <div class="card-tools">
-                  <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
-                    <i class="far fa-calendar-alt"></i>
-                  </button>
-                  <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-                <!-- /.card-tools -->
-              </div>
-              <div class="card-body">
-                <div id="world-map" style="height: 250px; width: 100%;"></div>
-              </div>
-              <!-- /.card-body-->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <div id="sparkline-1"></div>
-                    <div class="text-white">Trades</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-2"></div>
-                    <div class="text-white">Prices</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-3"></div>
-                    <div class="text-white">Economy</div>
-                  </div>
-                  <!-- ./col -->
-                </div>
-                <!-- /.row -->
-              </div>
-            </div>
-            <!-- /.card -->
+          <!-- *********************************************** *************** stock by state -->
 
-            <!-- solid sales graph -->
-            <div class="card bg-gradient-info">
-              <div class="card-header border-0">
-                <h3 class="card-title">
-                  <i class="fas fa-th mr-1"></i>
-                  Annual Financial Report
-                </h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
-                            data-fgColor="#39CCCC">
+          <!-- *********************************************** *************** stock by state -->
 
-                    <div class="text-white">Bloomberg</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
-                            data-fgColor="#39CCCC">
 
-                    <div class="text-white">Apple</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
-                            data-fgColor="#39CCCC">
+          <!-- *********************************** ********************** annual finanncial report-->
 
-                    <div class="text-white">Google</div>
-                  </div>
-                  <!-- ./col -->
-                </div>
-                <!-- /.row -->
-              </div>
-              <!-- /.card-footer -->
-            </div>
-            <!-- /.card -->
+          <!-- *********************************** ********************** annual finanncial report-->
 
-            <!-- Calendar -->
-            <!--<div class="card bg-gradient-success">
+          <!-- Calendar -->
+          <!--<div class="card bg-gradient-success">
               <div class="card-header border-0">
 
                 <h3 class="card-title">
@@ -620,55 +810,55 @@
               </div>
               
             </div>-->
-            <!-- /.card -->
-          </section>
-          <!-- right col -->
-        </div>
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+          <!-- /.card -->
+        </section>
+        <!-- right col -->
+      </div>
+      <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
 
-  </div>
+</div>
 
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 
-  <!-- jQuery -->
-  <script src="/static/assets/plugins/jquery/jquery.min.js"></script>
-  <!-- jQuery UI 1.11.4 -->
-  <script src="/static/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-  <script>
-    $.widget.bridge('uibutton', $.ui.button)
-  </script>
-  <!-- Bootstrap 4 -->
-  <script src="/static/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- ChartJS -->
-  <script src="/static/assets/plugins/chart.js/Chart.min.js"></script>
-  <!-- Sparkline -->
-  <script src="/static/assets/plugins/sparklines/sparkline.js"></script>
-  <!-- JQVMap -->
-  <script src="/static/assets/plugins/jqvmap/jquery.vmap.min.js"></script>
-  <script src="/static/assets/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-  <!-- jQuery Knob Chart -->
-  <script src="/static/assets/plugins/jquery-knob/jquery.knob.min.js"></script>
-  <!-- daterangepicker -->
-  <script src="/static/assets/plugins/moment/moment.min.js"></script>
-  <script src="/static/assets/plugins/daterangepicker/daterangepicker.js"></script>
-  <!-- Tempusdominus Bootstrap 4 -->
-  <script src="/static/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-  <!-- Summernote -->
-  <script src="/static/assets/plugins/summernote/summernote-bs4.min.js"></script>
-  <!-- overlayScrollbars -->
-  <script src="/static/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="/static/assets/js/adminlte.js"></script>
-  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="/static/assets/js/pages/dashboard.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="/static/assets/js/demo.js"></script>
+<!-- jQuery -->
+<script src="/static/assets/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/static/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="/static/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="/static/assets/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="/static/assets/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="/static/assets/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="/static/assets/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="/static/assets/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="/static/assets/plugins/moment/moment.min.js"></script>
+<script src="/static/assets/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="/static/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="/static/assets/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="/static/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/static/assets/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="/static/assets/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/static/assets/js/demo.js"></script>
 
 {% endblock javascripts %}
