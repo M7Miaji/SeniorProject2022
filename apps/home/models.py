@@ -22,7 +22,6 @@ class My_Transaction(models.Model):
     history=models.CharField(max_length=200)
     profit_loss=models.IntegerField()
     username=models.CharField(max_length=50)
-    feedback=models.CharField(max_length=300)
     
 
 

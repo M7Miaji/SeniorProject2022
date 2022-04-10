@@ -18,7 +18,6 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="/static/assets/css/adminlte.min.css">
 
-
 {% endblock stylesheets %}
 
 {% block content %} 
@@ -68,39 +67,18 @@
                   <tbody>
                     {% for i in all_data %}
                     <tr>
-                      <td>{{ i.id}}</td>
+                      <td>{{ i.hash}}</td>
                       <td>{{ i.mode}}</td>
                       <td>{{ i.company}}
                       </td>
                       <td>{{ i.industry}}</td>
                       <td>{{ i.history}}</td>
                       <td>{{ i.profit_loss}}</td>
-                      <div class="form-popup" id="myForm">
-                        <td>
-                        <form action="/action_page.php" class="form-container">
-                          <h1>feedback</h1>
-                      
-                          <label for="feedback"><b>feedback</b></label>
-                          <input type="text" placeholder="Write your feedback" name="feedback" required>
-                      
-                          
-                      
-                          <button type="submit" class="btn">Send</button>
-                          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-                        </form>
-                      </td></div>
+                      <td>{{ button}}</td>
                       
                       
                     </tr>
-                    
                     {% endfor %}
-                    <script>
-                      function openForm() {
-                                   document.getElementById("myForm").style.display = "block";}
-
-                      function closeForm() {
-                                   document.getElementById("myForm").style.display = "none";}
-                    </script>
                     <!--
                   <tr>
                     <td>Trident</td>
