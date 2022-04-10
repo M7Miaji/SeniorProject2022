@@ -84,10 +84,7 @@ def pages(request):
             return HttpResponse(html_template.render(context, request))
 
         elif load_template == 'index3 copy.html':
-            search = 'AAPL'
-            if request.method == 'POST':
-                search = request.POST['search']
-            data = get_quotes(search)
+            data = get_quotes("AAPL")
             context = {
                 "data": [data['quoteResponse']['result'][0]['regularMarketPrice'], data['quoteResponse']['result'][0]['regularMarketChangePercent'], data['quoteResponse']['result'][0]['marketCap'], 33.1, data['quoteResponse']['result'][0]['trailingPE'], 12, 15, data['quoteResponse']['result'][0]['priceToSales'], 0.5, 28.2, data['quoteResponse']['result'][0]['revenue'], 3, 1199, data['quoteResponse']['result'][0]['pegRatio'], 63, 352, 12, 0.8, 1],
             }
