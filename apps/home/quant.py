@@ -4,17 +4,10 @@ import requests #The requests library for HTTP requests in Python
 import xlsxwriter #The XlsxWriter libarary for 
 import math #The Python math module
 from scipy import stats #The SciPy stats module
+from .yahoo_api import get_quotes
 
 stocks = pd.read_csv('sp_500_stocks.csv')
 from secrets import IEX_CLOUD_API_TOKEN
-
-symbol = 'AAPL'
-api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={IEX_CLOUD_API_TOKEN}'
-data = requests.get(api_url).json()
-data
-
-pe_ratio = data['peRatio']
-pe_ratio
 
 def chunks(lst, n):
     for i in range(0, len(lst), n):
@@ -25,33 +18,6 @@ symbol_strings = []
 for i in range(0, len(symbol_groups)):
     symbol_strings.append(','.join(symbol_groups[i]))
 #     print(symbol_strings[i])
-
-my_columns = ['Ticker', 'Price', 'Price-to-Earnings Ratio', 'Number of Shares to Buy']
-
-final_dataframe = pd.DataFrame(columns = my_columns)
-
-for symbol_string in symbol_strings:
-#     print(symbol_strings)
-    batch_api_call_url = f'https://sandbox.iexapis.com/stable/stock/market/batch/?types=quote&symbols={symbol_string}&token={IEX_CLOUD_API_TOKEN}'
-    data = requests.get(batch_api_call_url).json()
-    for symbol in symbol_string.split(','):
-        final_dataframe = final_dataframe.append(
-                                        pd.Series([symbol, 
-                                                   data[symbol]['quote']['latestPrice'],
-                                                   data[symbol]['quote']['peRatio'],
-                                                   'N/A'
-                                                   ], 
-                                                  index = my_columns), 
-                                        ignore_index = True)
-        
-    
-final_dataframe
-
-final_dataframe.sort_values('Price-to-Earnings Ratio', inplace = True)
-final_dataframe = final_dataframe[final_dataframe['Price-to-Earnings Ratio'] > 0]
-final_dataframe = final_dataframe[:50]
-final_dataframe.reset_index(inplace = True)
-final_dataframe.drop('index', axis=1, inplace = True)
 
 def portfolio_input():
     global portfolio_size
@@ -64,11 +30,6 @@ def portfolio_input():
         portfolio_size = input("Enter the value of your portfolio:")
 
 portfolio_input()
-
-position_size = float(portfolio_size) / len(final_dataframe.index)
-for i in range(0, len(final_dataframe['Ticker'])):
-    final_dataframe.loc[i, 'Number of Shares to Buy'] = math.floor(position_size / final_dataframe['Price'][i])
-final_dataframe
 
 symbol = 'AAPL'
 batch_api_call_url = f'https://sandbox.iexapis.com/stable/stock/market/batch/?types=advanced-stats,quote&symbols={symbol}&token={IEX_CLOUD_API_TOKEN}'
@@ -196,76 +157,3 @@ position_size = float(portfolio_size) / len(rv_dataframe.index)
 for i in range(0, len(rv_dataframe['Ticker'])-1):
     rv_dataframe.loc[i, 'Number of Shares to Buy'] = math.floor(position_size / rv_dataframe['Price'][i])
 rv_dataframe
-
-writer = pd.ExcelWriter('value_strategy.xlsx', engine='xlsxwriter')
-rv_dataframe.to_excel(writer, sheet_name='Value Strategy', index = False)
-
-background_color = '#0a0a23'
-font_color = '#ffffff'
-
-string_template = writer.book.add_format(
-        {
-            'font_color': font_color,
-            'bg_color': background_color,
-            'border': 1
-        }
-    )
-
-dollar_template = writer.book.add_format(
-        {
-            'num_format':'$0.00',
-            'font_color': font_color,
-            'bg_color': background_color,
-            'border': 1
-        }
-    )
-
-integer_template = writer.book.add_format(
-        {
-            'num_format':'0',
-            'font_color': font_color,
-            'bg_color': background_color,
-            'border': 1
-        }
-    )
-
-float_template = writer.book.add_format(
-        {
-            'num_format':'0',
-            'font_color': font_color,
-            'bg_color': background_color,
-            'border': 1
-        }
-    )
-
-percent_template = writer.book.add_format(
-        {
-            'num_format':'0.0%',
-            'font_color': font_color,
-            'bg_color': background_color,
-            'border': 1
-        }
-    )
-
-column_formats = {
-                    'A': ['Ticker', string_template],
-                    'B': ['Price', dollar_template],
-                    'C': ['Number of Shares to Buy', integer_template],
-                    'D': ['Price-to-Earnings Ratio', float_template],
-                    'E': ['PE Percentile', percent_template],
-                    'F': ['Price-to-Book Ratio', float_template],
-                    'G': ['PB Percentile',percent_template],
-                    'H': ['Price-to-Sales Ratio', float_template],
-                    'I': ['PS Percentile', percent_template],
-                    'J': ['EV/EBITDA', float_template],
-                    'K': ['EV/EBITDA Percentile', percent_template],
-                    'L': ['EV/GP', float_template],
-                    'M': ['EV/GP Percentile', percent_template],
-                    'N': ['RV Score', percent_template]
-                 }
-
-for column in column_formats.keys():
-    writer.sheets['Value Strategy'].set_column(f'{column}:{column}', 25, column_formats[column][1])
-    writer.sheets['Value Strategy'].write(f'{column}1', column_formats[column][0], column_formats[column][1])
-
-writer.save()
