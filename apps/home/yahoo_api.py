@@ -38,5 +38,7 @@ def get_all():
 	return finish_data1, finish_data2, finish_data3, finish_data4, finish_data5
 #new = pd.DataFrame.from_dict(finish_data1)
 
+def stocks():
+	return data1, data2, data3, data4, data5
 #print(finish_data1) 
 #print(get_quotes(data))
