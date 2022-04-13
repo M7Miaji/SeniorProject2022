@@ -10,6 +10,7 @@ from scipy import stats #The SciPy stats module
 from IPython.display import display
 from scraping import stock
 from list import sample
+from statistics import mean
 
 stocker = 'AAPL,MSFT,GOOG,AMZN,TSLA,FB,NVDA,COST,ASML,INTC,CSCO,MU,OPEN,LCID,CSCO,RDBX,METC,TKNO,ZIMV,GOGO,AMD,GOOGL,NFLX'
 
@@ -140,7 +141,6 @@ for metric in metrics.values():
 #Print the entire DataFrame    
 #rv_dataframe
 
-from statistics import mean
 
 for row in rv_dataframe.index:
     value_percentiles = []
