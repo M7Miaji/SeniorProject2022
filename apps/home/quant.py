@@ -1,3 +1,4 @@
+from turtle import forward
 from matplotlib.pyplot import get
 import numpy as np #The Numpy numerical computing library
 import pandas as pd #The Pandas data science library
@@ -6,6 +7,7 @@ import xlsxwriter #The XlsxWriter libarary for
 import math #The Python math module
 from scipy import stats #The SciPy stats module
 from yahoo_api import get_all, stocks
+from IPython.display import display
 
 data1, data2, data3, data4, data5 = get_all()
 stock1, stock2, stock3, stock4, stock5 = stocks()
@@ -15,7 +17,8 @@ list_stock2 = stock2.split(",")
 list_stock3 = stock3.split(",")
 list_stock4 = stock4.split(",")
 list_stock5 = stock5.split(",")
-
+print(len(list_stock1))
+print(data1['quoteResponse']['result'][60]['symbol'])
 symbol_strings = list_stock1 + list_stock2 + list_stock3 + list_stock4 + list_stock5
 #print(list_stock2)
 
@@ -80,59 +83,91 @@ rv_columns = [
     'PS Percentile',
     'EV/EBITDA',
     'EV/EBITDA Percentile',
-    'EV/GP',
-    'EV/GP Percentile',
+    'PEG Ratio',
+    'PEG Ratio Percentile',
     'RV Score'
 ]
 rv_dataframe = pd.DataFrame(columns = rv_columns)
 data = {}
+count = 0
+'''
 for symbol_string in symbol_strings:
+    print(count)
     if symbol_string == "AACG":
         data = data1
+        count = 0
     elif symbol_string == "CLRM":
         data = data2
+        count = 0 
     elif symbol_string == "GPACU":
         data = data3
+        count = 0 
     elif symbol_string == "MRKR":
         data = data4
+        count = 0
     elif symbol_string == "SDC":
         data = data5
-'''
-    for symbol in symbol_string.split(','):
-        enterprise_value = data[symbol]['advanced-stats']['enterpriseValue']
-        ebitda = data[symbol]['advanced-stats']['EBITDA']
-        gross_profit = data[symbol]['advanced-stats']['grossProfit']
-        
-        try:
-            ev_to_ebitda = enterprise_value/ebitda
-        except TypeError:
-            ev_to_ebitda = np.NaN
-        
-        try:
-            ev_to_gross_profit = enterprise_value/gross_profit
-        except TypeError:
-            ev_to_gross_profit = np.NaN
-            
-        rv_dataframe = rv_dataframe.append(
-            pd.Series([
-                symbol,
-                data[symbol]['quote']['latestPrice'],
-                'N/A',
-                data[symbol]['quote']['peRatio'],
-                'N/A',
-                data[symbol]['advanced-stats']['priceToBook'],
-                'N/A',
-                data[symbol]['advanced-stats']['priceToSales'],
-                'N/A',
-                ev_to_ebitda,
-                'N/A',
-                ev_to_gross_profit,
-                'N/A',
-                'N/A'
-        ],
-        index = rv_columns),
-            ignore_index = True
-        )
+        count = 0
+    try:
+        enterprise_value = data['quoteResponse']['result'][count]['marketCap']
+    except KeyError:
+        enterprise_value = np.NaN
+    try:
+        ebitda = data['quoteResponse']['result'][count]['ebitda']
+    except KeyError:
+        ebitda = np.NaN
+
+    try:
+        ev_to_ebitda = enterprise_value/ebitda
+    except TypeError:
+        ev_to_ebitda = np.NaN
+
+    try:
+        forwardPE = data['quoteResponse']['result'][count]['forwardPE'] 
+    except KeyError:
+        forwardPE = np.NaN
+
+    try:
+        priceToBook = data['quoteResponse']['result'][count]['priceToBook'] 
+    except KeyError:
+        priceToBook = np.NaN
+
+    try:
+        priceToSales = data['quoteResponse']['result'][count]['priceToSales'] 
+    except KeyError:
+        priceToSales = np.NaN
+
+    try:
+        pegRatio = data['quoteResponse']['result'][count]['pegRatio'] 
+    except KeyError:
+        pegRatio = np.NaN
+
+    try:
+        regularMarketPrice = data['quoteResponse']['result'][count]['regularMarketPrice'] 
+    except KeyError:
+        regularMarketPrice = np.NaN
+
+    rv_dataframe = rv_dataframe.append(
+        pd.Series([
+            symbol_string,
+            regularMarketPrice,
+            'N/A',
+            forwardPE,
+            'N/A',
+            priceToBook,
+            'N/A',
+            priceToSales,
+            'N/A',
+            ev_to_ebitda,
+            'N/A',
+            pegRatio,
+            'N/A',
+            'N/A'
+    ],
+    index = rv_columns),
+        ignore_index = True
+    )
+    count = count + 1
 
 rv_dataframe[rv_dataframe.isnull().any(axis=1)]
 
@@ -158,7 +193,7 @@ for metric in metrics.values():
     print(rv_dataframe[metric])
 
 #Print the entire DataFrame    
-rv_dataframe
+#rv_dataframe
 
 from statistics import mean
 
@@ -168,7 +203,7 @@ for row in rv_dataframe.index:
         value_percentiles.append(rv_dataframe.loc[row, metrics[metric]])
     rv_dataframe.loc[row, 'RV Score'] = mean(value_percentiles)
     
-rv_dataframe
+#rv_dataframe
 
 rv_dataframe.sort_values(by = 'RV Score', inplace = True)
 rv_dataframe = rv_dataframe[:50]
@@ -179,5 +214,6 @@ portfolio_input()
 position_size = float(portfolio_size) / len(rv_dataframe.index)
 for i in range(0, len(rv_dataframe['Ticker'])-1):
     rv_dataframe.loc[i, 'Number of Shares to Buy'] = math.floor(position_size / rv_dataframe['Price'][i])
-rv_dataframe
+#rv_dataframe
+display(rv_dataframe)
 '''
