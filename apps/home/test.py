@@ -1,3 +1,4 @@
+from matplotlib.pyplot import hist
 import yfinance as yf 
 
 def stock(stock_symbol):
@@ -7,3 +8,6 @@ def stock(stock_symbol):
 def history(stock_ticker):
 	hist = stock_ticker.history(period="max")
 	return hist
+
+#print(history(stock('MSFT')))
+

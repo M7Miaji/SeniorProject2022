@@ -47,8 +47,6 @@ rv_columns = [
 
 rv_dataframe = pd.DataFrame(columns = rv_columns)
 data = {}
-count = 0
-print("Checkpoint 1")
 for symbol_string in symbol_strings_test:
     
     data = stock(symbol_string).info
@@ -113,7 +111,6 @@ for symbol_string in symbol_strings_test:
         ignore_index = True
     )
 
-print("Checkpoint 2")
 rv_dataframe[rv_dataframe.isnull().any(axis=1)]
 
 
