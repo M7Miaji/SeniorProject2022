@@ -8,7 +8,7 @@ import math #The Python math module
 from scipy import stats #The SciPy stats module
 #from yahoo_api import get_all, stocks
 from IPython.display import display
-from scraping import stock
+from scraping import stock, history
 from list import sample
 from statistics import mean
  
@@ -22,7 +22,8 @@ from datetime import datetime
  
 startDate=datetime(2019, 1,1)
 endDate=datetime(2020, 10, 5)
- 
+get_data = history(stock('MSFT'))
+print(get_data.head())
 # Fetching the data
 StockData=get_history(symbol='INFY', start=startDate, end=endDate)
 print(StockData.shape)
@@ -36,7 +37,8 @@ StockData.plot(x='TradeDate', y='Close', kind='line', figsize=(20,6), rot=20)
 
 # Extracting the closing prices of each day
 FullData=StockData[['Close']].values
-print(FullData[0:5])
+partData=get_data[['Close']].values
+print(partData[0:5])
 
 # Feature Scaling for fast training of neural networks
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
@@ -45,8 +47,8 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 #sc = StandardScaler()
 sc=MinMaxScaler()
 
-DataScaler = sc.fit(FullData)
-X=DataScaler.transform(FullData)
+DataScaler = sc.fit(partData)
+X=DataScaler.transform(partData)
 #X=FullData
 
 print('### After Normalization ###')
@@ -55,7 +57,7 @@ X[0:5]
 # Considering the Full Data again which we extracted above
 # Printing the last 10 values
 print('Original Prices')
-print(FullData[-10:])
+print(partData[-10:])
  
 print('###################')
  

@@ -9,5 +9,9 @@ def history(stock_ticker):
 	hist = stock_ticker.history(period="max")
 	return hist
 
-#print(history(stock('MSFT')))
+print(history(stock('MSFT')).head())
+get_data = history(stock('MSFT'))
+print(get_data[-10:])
+partData=get_data[['Close']].values
+print(partData[0:5])
 
