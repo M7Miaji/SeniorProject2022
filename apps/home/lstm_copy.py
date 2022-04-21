@@ -99,3 +99,32 @@ TimeSteps=X_train.shape[1]
 TotalFeatures=X_train.shape[2]
 print("Number of TimeSteps:", TimeSteps)
 print("Number of Features:", TotalFeatures)
+
+regressor=Sequential()
+
+regressor.add(LSTM(units = 10, activation = 'relu', input_shape = (TimeSteps, TotalFeatures), return_sequences=True))
+
+regressor.add(LSTM(units = 5, activation = 'relu', input_shape = (TimeSteps, TotalFeatures), return_sequences=True))
+
+regressor.add(LSTM(units = 5, activation = 'relu', return_sequences=False ))
+
+regressor.add(Dense(units = FutureTimeSteps))
+
+regressor.compile(optimizer = 'adam', loss = 'mean_squared_error')
+
+StartTime=time.time()
+
+regressor.fit(X_train, y_train, batch_size = 5, epochs = 100)
+
+EndTime=time.time()
+print("############### Total Time Taken: ", round((EndTime-StartTime)/60), 'Minutes #############')
+
+predicted_Price = regressor.predict(X_test)
+predicted_Price = DataScaler.inverse_transform(predicted_Price)
+print('#### Predicted Prices ####')
+print(predicted_Price)
+
+orig=y_test
+orig=DataScaler.inverse_transform(y_test)
+print('\n#### Original Prices ####')
+print(orig)
