@@ -128,3 +128,9 @@ orig=y_test
 orig=DataScaler.inverse_transform(y_test)
 print('\n#### Original Prices ####')
 print(orig)
+
+for i in range(len(orig)):
+    Prediction=predicted_Price[i]
+    Original=orig[i]
+
+print('### Accuracy of the predictions:'+ str(100 - (100*(abs(Original-Prediction)/Original)).mean().round(2))+'% ###')
