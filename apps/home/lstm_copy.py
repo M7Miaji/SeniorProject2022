@@ -30,9 +30,10 @@ get_data['TradeDate']=get_data.index
 
 # Placing the data in variables
 FullData=get_data[['Close']].values
+
 LowPrice=get_data[['Low']].values
 HighPrice=get_data[['High']].values
-ClosePrice=get_data[['Close']].values
+ClosePrice=get_data[['Close']].values 
 OpenPrice=get_data[['Open']].values
 Volume=get_data[['Volume']].values
 

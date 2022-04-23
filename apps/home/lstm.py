@@ -21,8 +21,9 @@ from nsepy import get_history
 from datetime import datetime
  
 startDate=datetime(2019, 1,1)
+startDate1='2020-1-1'
 endDate=datetime(2020, 10, 5)
-get_data = history(stock('MSFT'))
+get_data = history(stock('MSFT'),startDate1)
 print(get_data.head())
 # Fetching the data
 StockData=get_history(symbol='INFY', start=startDate, end=endDate)
