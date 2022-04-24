@@ -26,16 +26,16 @@ def run(Data):
     DataScaler=sc.fit(FullData)
     X=DataScaler.transform(FullData)
 
-    print('### After Normalization ###')
+    #print('### After Normalization ###')
 
-    print('Original Prices')
-    print(FullData[-10:])
+    #print('Original Prices')
+    #print(FullData[-10:])
 
-    print('##################')
+    #print('##################')
 
     X=X.reshape(X.shape[0],)
-    print('Scaled Prices')
-    print(X[-10:])
+    #print('Scaled Prices')
+    #print(X[-10:])
 
     X_samples = list()
     y_samples= list()
@@ -52,12 +52,12 @@ def run(Data):
 
     X_data=np.array(X_samples)
     X_data=X_data.reshape(X_data.shape[0],X_data.shape[1],1)
-    print('### Input Data Shape ###') 
-    print(X_data.shape)
+    #print('### Input Data Shape ###') 
+    #print(X_data.shape)
 
     y_data=np.array(y_samples)
-    print('### Output Data Shape ###') 
-    print(y_data.shape)
+    #print('### Output Data Shape ###') 
+    #print(y_data.shape)
 
     TestingRecords=5
 
@@ -66,13 +66,13 @@ def run(Data):
     y_train=y_data[:-TestingRecords]
     y_test=y_data[-TestingRecords:]
 
-    print('\n#### Training Data shape ####')
-    print(X_train.shape)
-    print(y_train.shape)
+    #print('\n#### Training Data shape ####')
+    #print(X_train.shape)
+    #print(y_train.shape)
 
-    print('\n#### Testing Data shape ####')
-    print(X_test.shape)
-    print(y_test.shape)
+    #print('\n#### Testing Data shape ####')
+    #print(X_test.shape)
+    #print(y_test.shape)
 
     for inp, out in zip(X_train[0:2], y_train[0:2]):
         print(inp)
@@ -82,8 +82,8 @@ def run(Data):
 
     TimeSteps=X_train.shape[1]
     TotalFeatures=X_train.shape[2]
-    print("Number of TimeSteps:", TimeSteps)
-    print("Number of Features:", TotalFeatures)
+    #print("Number of TimeSteps:", TimeSteps)
+    #print("Number of Features:", TotalFeatures)
 
     regressor=Sequential()
 
@@ -102,22 +102,22 @@ def run(Data):
     regressor.fit(X_train, y_train, batch_size = 5, epochs = 100)
 
     EndTime=time.time()
-    print("############### Total Time Taken: ", round((EndTime-StartTime)/60), 'Minutes #############')
+    #print("############### Total Time Taken: ", round((EndTime-StartTime)/60), 'Minutes #############')
 
     predicted_Price = regressor.predict(X_test)
     predicted_Price = DataScaler.inverse_transform(predicted_Price)
-    print('#### Predicted Prices ####')
-    print(predicted_Price)
+    #print('#### Predicted Prices ####')
+    #print(predicted_Price)
 
     orig=y_test
     orig=DataScaler.inverse_transform(y_test)
-    print('\n#### Original Prices ####')
-    print(orig)
+    #print('\n#### Original Prices ####')
+    #print(orig)
 
     for i in range(len(orig)):
         Prediction=predicted_Price[i]
         Original=orig[i]
 
-    print('### Accuracy of the predictions:'+ str(100 - (100*(abs(Original-Prediction)/Original)).mean().round(2))+'% ###')
+    #print('### Accuracy of the predictions:'+ str(100 - (100*(abs(Original-Prediction)/Original)).mean().round(2))+'% ###')
 
-    return str(100 - (100*(abs(Original-Prediction)/Original)).mean().round(2)), orig, predicted_Price
+    return str(100 - (100*(abs(Original-Prediction)/Original)).mean().round(2)), Original, Prediction
