@@ -1,12 +1,20 @@
 # imports
 import pandas as pd
 import numpy as np
+from scraping import stock, history
 
 # read dataset
-filename = "datasets/500_Person_Gender_Height_Weight_Index"
-df = pd.read_csv(f"{filename}.csv", usecols=[1,2,3], header=0, names=["height", "weight", "index"])
-print(df)
+#filename = "datasets/500_Person_Gender_Height_Weight_Index"
+#df = pd.read_csv(f"{filename}.csv", usecols=[1,2,3], header=0, names=["height", "weight", "index"])
+#print(df)
 
+startDate='2020-1-1'
+
+df=history(stock('AAPL'), startDate)
+
+df['TradeDate']=df.index
+
+print(df)
 # useful functions
 def split_train_test(df, p):
     """
@@ -19,19 +27,19 @@ def split_train_test(df, p):
     return train, test
 
 # split dataset into train and test
-train_df, test_df = split_train_test(df, 0.5)
+train_df, test_df = split_train_test(df, 0.8)
 
 print(train_df)
 print(test_df)
 
 # create array-like objects for train and test data
-x_train = np.array(train_df["height"])
-y_train = np.array(train_df["weight"])
-z_train = np.array(train_df["index"])
+x_train = np.array(train_df["Open"])
+y_train = np.array(train_df["Close"])
+z_train = np.array(train_df["High"])
 
-x_test = np.array(test_df["height"])
-y_test = np.array(test_df["weight"])
-z_test = np.array(test_df["index"])
+x_test = np.array(test_df["Open"])
+y_test = np.array(test_df["Close"])
+z_test = np.array(test_df["High"])
 
 # set initial values for learnable parameters
 a = 1
@@ -53,13 +61,13 @@ for i in range(epochs):
     a = a - loss_a*lr # adjust the parameters 
     b = b - loss_b*lr
     c = c - loss_c*lr
-    print(f"loss: {loss}  \t({i+1}/{epochs})")
+    #print(f"loss: {loss}  \t({i+1}/{epochs})")
     
 
 
-print(f"a: {a}")
-print(f"b: {b}")
-print(f"c: {c}")
+#print(f"a: {a}")
+#print(f"b: {b}")
+#print(f"c: {c}")
 
 from sklearn.metrics import r2_score
 

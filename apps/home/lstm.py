@@ -126,14 +126,6 @@ for inp, out in zip(X_train[0:2], y_train[0:2]):
     print(out)
     print('#'*20)
 
-# Visualizing the input and output being sent to the LSTM model
-# Based on last 10 days prices we are learning the next 5 days of prices
-for inp, out in zip(X_train[0:2], y_train[0:2]):
-    print(inp)
-    print('====>')
-    print(out)
-    print('#'*20)
-
 # Defining Input shapes for LSTM
 TimeSteps=X_train.shape[1]
 TotalFeatures=X_train.shape[2]
