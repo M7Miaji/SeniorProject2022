@@ -81,6 +81,7 @@ def main():
     get_data=history(stock('AAPL'), startDate)
     get_data['TradeDate']=get_data.index
     data=get_data[['Close']].values
+    random_forest_data = pd.DataFrame()
     print(get_data.head())
     TimeSteps, TotalFeatures, FutureTimeSteps, X_train, y_train, X_test, y_test, DataScaler = processing(data)
     regressor = lstm_model(TimeSteps, TotalFeatures, FutureTimeSteps)
