@@ -48,19 +48,11 @@ def prediction(regressor, X_test, DataScaler, y_test):
     orig=DataScaler.inverse_transform(y_test)
     return predicted_Price, orig
 
-def process(Data):
-    sc=MinMaxScaler()
-    DataScaler=sc.fit(Data)
-    X=DataScaler.transform(Data)
-    X=X.reshape(X.shape[0],)
-
-
 def processing(Data):
     sc=MinMaxScaler()
     DataScaler=sc.fit(Data)
     X=DataScaler.transform(Data)
     X=X.reshape(X.shape[0],)
-    print("-=------------",X)
     X_samples=list()
     y_samples=list()
     NumberofRows=len(X)
@@ -74,11 +66,7 @@ def processing(Data):
     X_data=np.array(X_samples)
     X_data=X_data.reshape(X_data.shape[0],X_data.shape[1],1)
     y_data=np.array(y_samples)
-    TestingRecords=5
-    X_train=X_data[:-TestingRecords]
-    X_test=X_data[-TestingRecords:]
-    y_train=y_data[:-TestingRecords]
-    y_test=y_data[-TestingRecords:]
+    X_train, X_test, y_train, y_test = train_test_split(X_data, y_data, test_size = 0.30, random_state = 0)
     for inp, out in zip(X_train[0:2], y_train[0:2]):
         print(inp)
         print('====>')
@@ -93,11 +81,15 @@ def main():
     get_data=history(stock('AAPL'), startDate)
     get_data['TradeDate']=get_data.index
     data=get_data[['Close']].values
-    TimeSteps, TotalFeatures, FutureTimeSteps, X_train, y_train, X_test, y_test, DataScaler = processing(get_data)
+    print(get_data.head())
+    TimeSteps, TotalFeatures, FutureTimeSteps, X_train, y_train, X_test, y_test, DataScaler = processing(data)
     regressor = lstm_model(TimeSteps, TotalFeatures, FutureTimeSteps)
     regressor = fit(X_train, y_train, regressor)
     predicted_Price, orig = prediction(regressor, X_test, DataScaler, y_test)
-    print(orig, predicted_Price)
+    print("original price")
+    print(orig)
+    print("predicted price")
+    print(predicted_Price)
     for i in range(len(orig)):
         Prediction=predicted_Price[i]
         Original=orig[i]
