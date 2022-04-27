@@ -1,8 +1,16 @@
-# imports
-import pandas as pd
-import numpy as np
 from scraping import stock, history
-
+import numpy as np
+from numpy import array
+import pandas as pd
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import MinMaxScaler    
+from sklearn.linear_model import LinearRegression
+import math
+from sklearn.metrics import mean_squared_error
 # read dataset
 #filename = "datasets/500_Person_Gender_Height_Weight_Index"
 #df = pd.read_csv(f"{filename}.csv", usecols=[1,2,3], header=0, names=["height", "weight", "index"])
@@ -13,67 +21,45 @@ startDate='2020-1-1'
 df=history(stock('AAPL'), startDate)
 
 df['TradeDate']=df.index
+ 
+df1 = df[['Close']].values
 
-print(df)
-# useful functions
-def split_train_test(df, p):
-    """
-    Takes a dataframe and the number of data in the train set.
-    Returns a list of dataframes.
-    """
-    n = int(p*len(df))
-    train = df.iloc[0:n, :]
-    test = df.iloc[n:len(df), :]
-    return train, test
+df1 = np.array(df1)
+df1 = df1.reshape(-1,1)
 
-# split dataset into train and test
-train_df, test_df = split_train_test(df, 0.8)
+scaler = MinMaxScaler(feature_range=(0,1))
+df1 = scaler.fit_transform(df1)
+print(df1)
 
-print(train_df)
-print(test_df)
+# splitting dataset into train and test split
+training_size = int(len(df1)*0.65)
+test_size = len(df1)-training_size
+train_data,test_data  =df1[0:training_size,:], df1[training_size:len(df1),:1]
+train_data.shape
 
-# create array-like objects for train and test data
-x_train = np.array(train_df["Open"])
-y_train = np.array(train_df["Close"])
-z_train = np.array(train_df["High"])
+def create_dataset(dataset, time_step=1):
+    dataX, dataY = [], []
+    for i in range(len(dataset)-time_step-1):
+        a= dataset[i:(i+time_step), 0]
+        dataX.append(a)
+        dataY.append(dataset[i+ time_step, 0])
+    return np.array(dataX), np.array(dataY)
 
-x_test = np.array(test_df["Open"])
-y_test = np.array(test_df["Close"])
-z_test = np.array(test_df["High"])
-
-# set initial values for learnable parameters
-a = 1
-b = 1
-c = 0
-
-lr = 0.000005 # learning rate
-epochs = 1000 # number of iterations
-
-n = len(z_train)
-
-for i in range(epochs):
-    z_predicted = a*x_train + b*y_train + c # make a prediction
-    error = z_predicted - z_train # calculate the error
-    loss = np.sum(error**2)/n # calculate the loss 
-    loss_a = 2*np.sum(error*x_train)/n # partial derivatives of the loss
-    loss_b = 2*np.sum(error*y_train)/n
-    loss_c = 2*np.sum(error)/n
-    a = a - loss_a*lr # adjust the parameters 
-    b = b - loss_b*lr
-    c = c - loss_c*lr
-    #print(f"loss: {loss}  \t({i+1}/{epochs})")
-    
+time_step = 100
+X_train, y_train = create_dataset(train_data, time_step)
+X_test, y_test = create_dataset(test_data, time_step)
+train_data.shape, test_data.shape
 
 
-#print(f"a: {a}")
-#print(f"b: {b}")
-#print(f"c: {c}")
+model = LinearRegression()
+model.fit(X_train, y_train)
 
-from sklearn.metrics import r2_score
+predictions = model.predict(X_test)
+print("Predicted Value",predictions[:10][0])
+print("Expected Value",y_test[:10][0])
 
-z_prediction = a*x_test + b*y_test + c
-print(f"R2 Score: {r2_score(z_test, z_prediction)}")
+pred_df= pd.DataFrame(predictions)
+pred_df['TrueValues']=y_test
 
-for i in range(len(z_prediction)):
-    print(f"BMI: {z_test[i]}  Predicted: {z_prediction[i]}")
-
+new_pred_df=pred_df.rename(columns={0: 'Predictions'})
+new_pred_df.head()
