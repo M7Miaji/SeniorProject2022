@@ -29,7 +29,6 @@ df1 = df1.reshape(-1,1)
 
 scaler = MinMaxScaler(feature_range=(0,1))
 df1 = scaler.fit_transform(df1)
-print(df1)
 
 # splitting dataset into train and test split
 training_size = int(len(df1)*0.65)
@@ -55,6 +54,8 @@ model = LinearRegression()
 model.fit(X_train, y_train)
 
 predictions = model.predict(X_test)
+print(predictions)
+print
 print("Predicted Value",predictions[:10][0])
 print("Expected Value",y_test[:10][0])
 
@@ -62,4 +63,4 @@ pred_df= pd.DataFrame(predictions)
 pred_df['TrueValues']=y_test
 
 new_pred_df=pred_df.rename(columns={0: 'Predictions'})
-new_pred_df.head()
+print(new_pred_df.head())
