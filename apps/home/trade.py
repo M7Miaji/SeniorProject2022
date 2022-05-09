@@ -13,7 +13,6 @@ from sklearn import preprocessing
 from sklearn.preprocessing import MinMaxScaler
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
-import tensorflow as tf
 import keras
 from keras import optimizers
 from keras.callbacks import History
@@ -47,19 +46,140 @@ def applytechnicals(df, feature_names):
     df.dropna(inplace=True)
 
     return feature_names
-    
 
 def forest_main():
     startDate='2020-1-1'
     df=history(stock('AAPL'), startDate)
     df.drop('Dividends', axis=1, inplace=True) 
     df.drop('Stock Splits', axis=1, inplace=True)
-    df.drop('Volume', axis=1, inplace=True) 
-    print(df)
+    #df.drop('Volume', axis=1, inplace=True) 
+    #print(df)
     feature_names = []
-    feature_names = applytechnicals(df, feature_names)
+    #feature_names = applytechnicals(df, feature_names)
+    df = technicals(df)
     print(df.head())
-    random_regressor(df)
+    print(df.columns)
+    #random_regressor(df)
+    #random_classify(df)
+
+def CCI(df, ndays): 
+    df['TP'] = (df['High'] + df['Low'] + df['Close']) / 3 
+    df['sma'] = df['TP'].rolling(ndays).mean()
+    df['mad'] = df['TP'].rolling(ndays).apply(lambda x: pd.Series(x).mad())
+    df['CCI'] = (df['TP'] - df['sma']) / (0.015 * df['mad']) 
+    return df
+
+def EVM(df, ndays): 
+    dm = ((df['High'] + df['Low'])/2) - ((df['High'].shift(1) + df['Low'].shift(1))/2)
+    br = (df['Volume'] / 100000000) / ((df['High'] - df['Low']))
+    EVM = dm / br 
+    EVM_MA = pd.Series(EVM.rolling(ndays).mean(), name = 'EVM_'+str(ndays)) 
+    df = df.join(EVM_MA) 
+    return df
+
+# Simple Moving Average 
+def SMA(df, ndays): 
+    SMA = pd.Series(df['Close'].rolling(ndays).mean(), name = 'SMA_'+str(ndays)) 
+    df = df.join(SMA) 
+    return df
+
+# Exponentially-weighted Moving Average  https://python.plainenglish.io/algorithmic-trading-using-python-6b37adbf7091 https://www.learndatasci.com/tutorials/python-finance-part-3-moving-average-trading-strategy/ https://towardsdatascience.com/algorithmic-trading-in-python-simple-moving-averages-7498245b10b https://towardsdatascience.com/machine-learning-for-day-trading-27c08274df54 https://www.youtube.com/watch?v=SEQbb8w7VTw
+def EWMA(df, ndays): 
+    EMA = pd.Series(df['Close'].ewm(span = ndays, min_periods = ndays - 1).mean(), 
+                    name = 'EWMA_' + str(ndays)) 
+    df = df.join(EMA) 
+    return df 
+
+def ROC(df,n):
+    N = df['Close'].diff(n)
+    D = df['Close'].shift(n)
+    ROC = pd.Series(N/D,name='Rate of Change_'+str(n))
+    df = df.join(ROC)
+    return df 
+
+def BBANDS(df, n):
+    MA = df.Close.rolling(window=n).mean()
+    SD = df.Close.rolling(window=n).std()
+    df['UpperBB_'+str(n)] = MA + (2 * SD) 
+    df['LowerBB_'+str(n)] = MA - (2 * SD)
+    return df
+
+def ForceIndex(df, ndays): 
+    FI = pd.Series(df['Close'].diff(ndays) * df['Volume'], name = 'ForceIndex_'+str(ndays)) 
+    df = df.join(FI) 
+    return df
+
+def technicals(df):
+    df = CCI(df, 14)
+    for i in range(2, 10, 2):
+        df = EVM(df, i*10)
+        df = SMA(df,i*10)
+        df = EWMA(df,i*10)
+        df = ROC(df,i*10)
+        df = BBANDS(df, i*10)
+        df = ForceIndex(df,i)
+        df['RSI_'+str(i)] = ta.momentum.rsi(df['Close'], window=i)
+        df['macd']=ta.trend.macd_diff(df['Close'])
+    ema10 = df['Close'].ewm(span=10).mean()
+    ema30 = df['Close'].ewm(span=30).mean()
+    df['EMA10gtEMA30'] = np.where(ema10 > ema30, 1, -1)
+    # Calculate where Close is > EMA10
+    df['ClGtEMA10'] = np.where(df['Close'] > ema10, 1, -1)
+    high14= df['High'].rolling(14).max()
+    low14 = df['Low'].rolling(14).min()
+    df['%K'] = (df['Close'] - low14)*100/(high14 - low14)
+    # Williams Percentage Range
+    df['%R'] = -100*(high14 - df['Close'])/(high14 - low14)
+    days = 6
+    # Price Rate of Change
+    ct_n = df['Close'].shift(days)
+    df['PROC'] = (df['Close'] - ct_n)/ct_n
+    df['Return'] = df['Close'].pct_change(1).shift(-1)
+    df['%Volume'] = df['Volume'].pct_change(1).shift(-1)
+    df['class'] = np.where(df['Return'] > 0, 1, 0)
+    
+    df.dropna(inplace=True)
+    df.drop('sma', axis=1, inplace=True)
+    df.drop('mad', axis=1, inplace=True)
+    return df
+
+
+def random_classify(df):
+    ema10 = df['Close'].ewm(span=10).mean()
+    ema30 = df['Close'].ewm(span=30).mean()
+    df['EMA10gtEMA30'] = np.where(ema10 > ema30, 1, -1)
+    # Calculate where Close is > EMA10
+    df['ClGtEMA10'] = np.where(df['Close'] > ema10, 1, -1)
+    # Calculate the MACD signal
+    exp1 = df['Close'].ewm(span=12).mean()
+    exp2 = df['Close'].ewm(span=26).mean()
+    macd = exp1 - exp2
+    macd_signal = macd.ewm(span=9).mean()
+    df['MACD'] = macd_signal - macd
+    # Calculate RSI
+    delta = df['Close'].diff()
+    up = delta.clip(lower=0)
+    down = -1*delta.clip(upper=0)
+    ema_up = up.ewm(com=13, adjust=False).mean()
+    ema_down = down.ewm(com=13, adjust=False).mean()
+    rs = ema_up/ema_down
+    df['RSI'] = 100 - (100/(1 + rs))
+    # Stochastic Oscillator
+    high14= df['High'].rolling(14).max()
+    low14 = df['Low'].rolling(14).min()
+    df['%K'] = (df['Close'] - low14)*100/(high14 - low14)
+    # Williams Percentage Range
+    df['%R'] = -100*(high14 - df['Close'])/(high14 - low14)
+    days = 6
+    # Price Rate of Change
+    ct_n = df['Close'].shift(days)
+    df['PROC'] = (df['Close'] - ct_n)/ct_n
+    df['Return'] = df['Close'].pct_change(1).shift(-1)
+    df['%Volume'] = df['Volume'].pct_change(1).shift(-1)
+    df['class'] = np.where(df['Return'] > 0, 1, 0)
+    # Clean for NAN rows
+    df = df.dropna()
+    print(df.tail())
 
 def random_regressor(df):
 
@@ -154,7 +274,7 @@ def processing(data):
     X_data=X_data.reshape(X_data.shape[0],X_data.shape[1],1)
     y_data=np.array(y_samples)
 
-    TestingRecords=5
+    TestingRecords=200
 
 # Splitting the data into train and test
     X_train=X_data[:-TestingRecords]
@@ -215,7 +335,7 @@ def regression_model():
     df['TradeDate']=df.index
     
     df1 = df[['Close']].values
-
+    print(df.shape)
     df1 = np.array(df1)
     df1 = df1.reshape(-1,1)
 
@@ -223,15 +343,14 @@ def regression_model():
     df1 = scaler.fit_transform(df1)
 
     # splitting dataset into train and test split
-    training_size = int(len(df1)*0.65)
+    training_size = int(len(df1)*0.75)
     test_size = len(df1)-training_size
-    train_data,test_data  = df1[0:training_size,:], df1[training_size:len(df1),:1]
-
+    train_data,test_data  = df1[-training_size:], df1[:-training_size]
+    print(train_data.shape, test_data.shape)
     time_step = 100
     X_train, y_train = create_dataset(train_data, time_step)
     X_test, y_test = create_dataset(test_data, time_step)
-    train_data.shape, test_data.shape
-
+    print(X_train.shape, X_test.shape)
 
     model = LinearRegression()
     model.fit(X_train, y_train)
@@ -240,27 +359,29 @@ def regression_model():
     print(predictions)
     print("Predicted Value",predictions[:10][0])
     print("Expected Value",y_test[:10][0])
-
+    predictions = predictions.reshape(-1, 1)
+    predictions = scaler.inverse_transform(predictions)
     pred_df= pd.DataFrame(predictions)
+    y_test = y_test.reshape(-1, 1)
+    y_test = scaler.inverse_transform(y_test)
     pred_df['TrueValues']=y_test
 
     new_pred_df=pred_df.rename(columns={0: 'Predictions'})
     print(new_pred_df.head())
+    print("Shape of the prediction for Linear Regression: ",new_pred_df.shape)
 
 def main():
-    startDate='2010-1-1'
+    startDate='2020-1-1'
     get_data=history(stock('AAPL'), startDate)
     get_data['TradeDate']=get_data.index
     get_data.drop('Dividends', axis=1, inplace=True) 
     get_data.drop('Stock Splits', axis=1, inplace=True)
     get_data.drop('Volume', axis=1, inplace=True)  
-    tech = applytechnicals(get_data)
-    print(tech)
-    print(get_data.shape)
     data =get_data[['Close']].values
 
+    print(data.shape)
     TimeSteps, TotalFeatures, FutureTimeSteps, X_train, y_train, X_test, y_test, DataScaler = processing(data) # Check
-   
+    print("X train: ", X_train.shape, X_test.shape)
     model = lstm_model(TimeSteps, TotalFeatures, FutureTimeSteps)
 
     model = fit(X_train, y_train, model)
@@ -280,7 +401,10 @@ def main():
     print(Original)
     print(str(100 - (100*(abs(Original-Prediction)/Original)).mean().round(2)))
 
-    predict_future(model, get_data, DataScaler)
+    #predict_future(model, get_data, DataScaler)
     
+def final():
+
+    return 0
 
 forest_main()
