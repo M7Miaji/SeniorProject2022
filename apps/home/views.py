@@ -11,11 +11,17 @@ from django.urls import reverse
 from django.shortcuts import render
 import feedparser
 import webbrowser
+import json
 from django.template.defaulttags import register
 from .yahoo_api import get_quotes
 from django.shortcuts import render
 from .models import My_Transaction
 from .models import Configuration
+from .trade import main
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.backends.backend_agg import FigureCanvasAgg
+from django.http import HttpResponse
 
 # The feedparser that will get the application from the web 
 feed = feedparser.parse("https://www.cnbc.com/id/20409666/device/rss/rss.html?x=1")
@@ -73,6 +79,27 @@ def pages(request):
             context = {
                 "data": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             }
+            if load_template == 'admin':
+                return HttpResponseRedirect(reverse('admin:index'))
+            #context['segment'] = load_template
+            html_template = loader.get_template('home/' + load_template)
+
+            all_data = My_Transaction.objects.all()
+            for i in all_data:
+                print(i.mode)
+            return HttpResponse(html_template.render(context, request))
+        
+        elif load_template == 'charts-chartjs.html': # My Transaction ADD POST----------------------------------------------------------
+            #array_per, array_org, accuracy = main("AAPL")
+            labels = ["Jan", "Feb", "Mar", "Apr"]
+            data = [100, 85, 200, 230, 30, 280]
+            context = {
+                "filename": "charts-chartjs.html",
+                "collapse": "",
+                "labels": json.dumps(labels),
+                "data": data,
+            }
+
             if load_template == 'admin':
                 return HttpResponseRedirect(reverse('admin:index'))
             #context['segment'] = load_template
@@ -164,3 +191,4 @@ def my_view(request, *args, **kwargs):
 
     # Returning the rendered html
     return render(request, "home.html", context)
+

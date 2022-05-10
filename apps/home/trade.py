@@ -1,11 +1,10 @@
-from scraping import stock, history
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 import seaborn as sns   
 import math
 from sklearn.metrics import accuracy_score, confusion_matrix, mean_squared_error, precision_score
 from matplotlib.pyplot import axis, get
-from scraping import stock, history
+#from scraping import stock, history
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -29,6 +28,16 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import ParameterGrid
 from sklearn.metrics import classification_report
 from sklearn import metrics
+import yfinance as yf 
+
+def stock(stock_symbol):
+    stock_info = yf.Ticker(stock_symbol)
+    return stock_info
+
+def history(stock_ticker, startDate):
+	hist = stock_ticker.history(start=startDate)
+	return hist
+    
 np.set_printoptions(suppress=True)
 
 def applytechnicals(df, feature_names):
@@ -59,6 +68,19 @@ def forest_main():
     df = technicals(df)
     print(df.head())
     print(df.columns)
+
+    title =  'Grahph for the indicators'
+    plt.figure(figsize=(12.2,4.5)) 
+    #width = 12.2in, height = 4.5plt.plot( my_stocks['AAPL'],  label='AAPL')#plt.plot( X-Axis , Y-Axis, line_width, alpha_for_blending,  label)
+    #plt.plot( df['AAPL'],  label='SMA30')
+    #plt.plot( df['AAPL'],  label='SMA100')
+    plt.plot( df['Close'],  label='Close')
+    plt.plot( df['CMA_30'],  label='CMA_30')
+    plt.title(title)
+    plt.xlabel('Oct. 02, 2006 - Dec. 30, 2011 ',fontsize=18)
+    plt.ylabel('Close. Price USD ($)',fontsize=18)
+    plt.legend( loc='upper left')
+    plt.show()
     #random_regressor(df)
     #random_classify(df)
 
@@ -137,7 +159,7 @@ def technicals(df):
     df['Return'] = df['Close'].pct_change(1).shift(-1)
     df['%Volume'] = df['Volume'].pct_change(1).shift(-1)
     df['class'] = np.where(df['Return'] > 0, 1, 0)
-    
+    df['CMA_30'] = df['Close'].expanding().mean()
     df.dropna(inplace=True)
     df.drop('sma', axis=1, inplace=True)
     df.drop('mad', axis=1, inplace=True)
@@ -370,14 +392,14 @@ def regression_model():
     print(new_pred_df.head())
     print("Shape of the prediction for Linear Regression: ",new_pred_df.shape)
 
-def main():
+def main(stockName):
     startDate='2020-1-1'
-    get_data=history(stock('AAPL'), startDate)
+    get_data=history(stock(stockName), startDate)
     get_data['TradeDate']=get_data.index
     get_data.drop('Dividends', axis=1, inplace=True) 
     get_data.drop('Stock Splits', axis=1, inplace=True)
-    get_data.drop('Volume', axis=1, inplace=True)  
-    data =get_data[['Close']].values
+    #get_data.drop('Volume', axis=1, inplace=True)  
+    data = get_data[['Close']].values
 
     print(data.shape)
     TimeSteps, TotalFeatures, FutureTimeSteps, X_train, y_train, X_test, y_test, DataScaler = processing(data) # Check
@@ -393,18 +415,26 @@ def main():
     print(orig)
     print("Predicted Price")
     print(predicted_Price)
-    
+
+    array_per = np.empty(0)
+    array_org = np.empty(0)
     for i in range(len(orig)):
         Prediction=predicted_Price[i]
         Original=orig[i]
+        array_per = np.append(array_per, predicted_Price[i][4])
+        array_org = np.append(array_org, orig[i][4])
     print(Prediction)
     print(Original)
-    print(str(100 - (100*(abs(Original-Prediction)/Original)).mean().round(2)))
+    
+    accuracy = str(100 - (100*(abs(array_org-array_per)/array_org)).mean().round(2))
+    print(accuracy)
 
+    
+    return array_per, array_org, accuracy
     #predict_future(model, get_data, DataScaler)
     
 def final():
 
     return 0
 
-forest_main()
+#main('AAPL')
