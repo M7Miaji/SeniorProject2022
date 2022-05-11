@@ -86,8 +86,8 @@ def pages(request):
             html_template = loader.get_template('home/' + load_template)
 
             all_data = My_Transaction.objects.all()
-            for i in all_data:
-                print(i.mode)
+            #for i in all_data:
+            #    print(i.mode)
             return HttpResponse(html_template.render(context, request))
         
         elif load_template == 'charts-chartjs.html': # My Transaction ADD POST----------------------------------------------------------
@@ -99,7 +99,7 @@ def pages(request):
             for i in range(20):
                 array.append(array_per[180+i]) 
                 array2.append(array_org[180+i])
-            labels = ["Jan", "Feb", "Mar", "Apr","Jan", "Feb", "Mar", "Apr","Jan", "Feb", "Mar", "Apr","Jan", "Feb", "Mar", "Apr","Jan", "Feb", "Mar", "Apr"]
+            labels = ["1", "2", "3", "4","5", "6", "7", "8","9", "10", "11", "12","13", "14", "15", "16","17", "18", "19", "20"]
             data = array
             data1 = array2
             context = {
@@ -117,8 +117,8 @@ def pages(request):
             html_template = loader.get_template('home/' + load_template)
 
             all_data = My_Transaction.objects.all()
-            for i in all_data:
-                print(i.mode)
+            #for i in all_data:
+            #    print(i.mode)
             return HttpResponse(html_template.render(context, request))
 
         elif load_template == 'index3 copy.html':

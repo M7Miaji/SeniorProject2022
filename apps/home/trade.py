@@ -432,7 +432,8 @@ def main(stockName):
 
     EndTime=time.time()
     len_time = round((EndTime-StartTime)/60)
-    return array_per, array_org, accuracy, 380, 200, len_time
+    #print(len(X_train))
+    return array_per, array_org, accuracy, len(X_train), len(X_test), len_time
     #predict_future(model, get_data, DataScaler)
     
 def final():
