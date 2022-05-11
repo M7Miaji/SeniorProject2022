@@ -80,7 +80,7 @@
 
                   <div class="chart">
                     <!-- Sales Chart Canvas -->
-                    <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
+                    <canvas id="lineChart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                   </div>
                   <!-- /.chart-responsive -->
                 </div>
@@ -135,36 +135,36 @@
               <div class="row">
                 <div class="col-sm-3 col-6">
                   <div class="description-block border-right">
-                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
-                    <h5 class="description-header">$35,210.43</h5>
-                    <span class="description-text">TOTAL REVENUE</span>
+            
+                    <h5 class="description-header">{{ info.0|safe }}</h5>
+                    <span class="description-text">Number of Training Data</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-3 col-6">
                   <div class="description-block border-right">
-                    <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
-                    <h5 class="description-header">$10,390.90</h5>
-                    <span class="description-text">TOTAL COST</span>
+                    
+                    <h5 class="description-header">{{ info.1|safe }}</h5>
+                    <span class="description-text">Number of Testing Data</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-3 col-6">
                   <div class="description-block border-right">
-                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
-                    <h5 class="description-header">$24,813.53</h5>
-                    <span class="description-text">TOTAL PROFIT</span>
+                    
+                    <h5 class="description-header">{{ info.2|safe }}</h5>
+                    <span class="description-text">Time Taken</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-3 col-6">
                   <div class="description-block">
-                    <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>
-                    <h5 class="description-header">1200</h5>
-                    <span class="description-text">GOAL COMPLETIONS</span>
+                    
+                    <h5 class="description-header">{{ info.3|safe }}</h5>
+                    <span class="description-text">Accuracy Score</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
@@ -268,7 +268,7 @@
       var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
 
       var areaChartData = {
-        labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels  : {{ labels|safe }},
         datasets: [
           {
             label               : 'Digital Goods',
@@ -279,7 +279,7 @@
             pointStrokeColor    : 'rgba(60,141,188,1)',
             pointHighlightFill  : '#fff',
             pointHighlightStroke: 'rgba(60,141,188,1)',
-            data                : [28, 48, 40, 19, 86, 27, 90]
+            data                : {{ data1|safe}}
           },
           {
             label               : 'Electronics',
@@ -290,7 +290,7 @@
             pointStrokeColor    : '#c1c7d1',
             pointHighlightFill  : '#fff',
             pointHighlightStroke: 'rgba(220,220,220,1)',
-            data                : [65, 59, 80, 81, 56, 55, 40]
+            data                : {{ data|safe }}
           },
         ]
       }
@@ -325,6 +325,19 @@
       //-------------
       //- LINE CHART -
       //--------------
+      var lineChartCanvas = $('#lineChart1').get(0).getContext('2d')
+      var lineChartOptions = $.extend(true, {}, areaChartOptions)
+      var lineChartData = $.extend(true, {}, areaChartData)
+      lineChartData.datasets[0].fill = false;
+      lineChartData.datasets[1].fill = false;
+      lineChartOptions.datasetFill = false
+
+      var lineChart = new Chart(lineChartCanvas, {
+        type: 'line',
+        data: lineChartData,
+        options: lineChartOptions
+      })
+
       var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
       var lineChartOptions = $.extend(true, {}, areaChartOptions)
       var lineChartData = $.extend(true, {}, areaChartData)

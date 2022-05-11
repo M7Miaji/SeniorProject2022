@@ -393,6 +393,7 @@ def regression_model():
     print("Shape of the prediction for Linear Regression: ",new_pred_df.shape)
 
 def main(stockName):
+    StartTime=time.time()
     startDate='2020-1-1'
     get_data=history(stock(stockName), startDate)
     get_data['TradeDate']=get_data.index
@@ -429,8 +430,9 @@ def main(stockName):
     accuracy = str(100 - (100*(abs(array_org-array_per)/array_org)).mean().round(2))
     print(accuracy)
 
-    
-    return array_per, array_org, accuracy
+    EndTime=time.time()
+    len_time = round((EndTime-StartTime)/60)
+    return array_per, array_org, accuracy, 380, 200, len_time
     #predict_future(model, get_data, DataScaler)
     
 def final():
