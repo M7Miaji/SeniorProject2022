@@ -91,14 +91,23 @@ def pages(request):
             return HttpResponse(html_template.render(context, request))
         
         elif load_template == 'charts-chartjs.html': # My Transaction ADD POST----------------------------------------------------------
-            array_per, array_org, accuracy, X_train, X_test, len_time = main("AAPL")
-            array_per.tolist()
-            array_info = [X_train, X_test, len_time, accuracy]
-            array = []
-            array2 = []
-            for i in range(20):
-                array.append(array_per[180+i]) 
-                array2.append(array_org[180+i])
+    
+            array_info = [0, 0, 0, 0]
+            array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+            array2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+            #search = 'AAPL'
+            if request.method == 'POST':
+                search = request.POST['search']
+                array = []
+                array2 = []
+                array_info = []
+                array_per, array_org, accuracy, X_train, X_test, len_time = main("AAPL")
+                array_per.tolist()
+                array_info = [X_train, X_test, len_time, accuracy]
+                for i in range(20):
+                    array.append(array_per[180+i]) 
+                    array2.append(array_org[180+i])
+                    
             labels = ["1", "2", "3", "4","5", "6", "7", "8","9", "10", "11", "12","13", "14", "15", "16","17", "18", "19", "20"]
             data = array
             data1 = array2
