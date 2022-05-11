@@ -93,22 +93,28 @@ def pages(request):
         elif load_template == 'charts-chartjs.html': # My Transaction ADD POST----------------------------------------------------------
     
             array_info = [0, 0, 0, 0]
-            array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-            array2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-            #search = 'AAPL'
+            array = list(range(1, 201))
+            array2 = list(range(1, 201))
+            Next5Daysls = [0,0,0,0,0]
+
             if request.method == 'POST':
                 search = request.POST['search']
                 array = []
                 array2 = []
                 array_info = []
-                array_per, array_org, accuracy, X_train, X_test, len_time = main("AAPL")
+                Next5Daysls = []
+                array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days = main("AAPL")
                 array_per.tolist()
                 array_info = [X_train, X_test, len_time, accuracy]
-                for i in range(20):
-                    array.append(array_per[180+i]) 
-                    array2.append(array_org[180+i])
-                    
-            labels = ["1", "2", "3", "4","5", "6", "7", "8","9", "10", "11", "12","13", "14", "15", "16","17", "18", "19", "20"]
+                for i in range(5):
+                    Next5Daysls.append(Next5Days[0][i])
+                for i in range(200):
+                    array.append(array_per[i]) 
+                    array2.append(array_org[i])
+            List = list(range(1, 201))
+            for i in range(len(List)):
+                List[i] = str(List[i])
+            labels = List
             data = array
             data1 = array2
             context = {
@@ -117,7 +123,8 @@ def pages(request):
                 "labels": json.dumps(labels),
                 "data1": json.dumps(data1),
                 "data": json.dumps(data),
-                "info": array_info
+                "info": array_info,
+                "next": Next5Daysls,
             }
 
             if load_template == 'admin':

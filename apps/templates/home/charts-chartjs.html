@@ -26,7 +26,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>LSTM</h1>
+            <h1>ChartJS</h1>            <h1>LSTM</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -117,41 +117,44 @@
                     <strong>Goal Completion</strong>
                   </p>
 
-                  <div class="progress-group">
-                    Add Products to Cart
-                    <span class="float-right"><b>160</b>/200</span>
-                    <div class="progress progress-sm">
-                      <div class="progress-bar bg-primary" style="width: 80%"></div>
-                    </div>
+                  <div class="card-body">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Price</th>
+                          <th style="width: 40px">Percentage</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1.</td>
+                          <td>{{ next.0|safe }}</td>
+                          <td><span class="badge bg-danger">55%</span></td>
+                        </tr>
+                        <tr>
+                          <td>2.</td>
+                          <td>{{ next.1|safe }}</td>
+                          <td><span class="badge bg-warning">70%</span></td>
+                        </tr>
+                        <tr>
+                          <td>3.</td>
+                          <td>{{ next.2|safe }}</td>
+                          <td><span class="badge bg-primary">30%</span></td>
+                        </tr>
+                        <tr>
+                          <td>4.</td>
+                          <td>{{ next.3|safe }}</td>
+                          <td><span class="badge bg-success">90%</span></td>
+                        </tr>
+                        <tr>
+                          <td>5.</td>
+                          <td>{{ next.4|safe }}</td>
+                          <td><span class="badge bg-success">90%</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
-                  <!-- /.progress-group -->
-
-                  <div class="progress-group">
-                    Complete Purchase
-                    <span class="float-right"><b>310</b>/400</span>
-                    <div class="progress progress-sm">
-                      <div class="progress-bar bg-danger" style="width: 75%"></div>
-                    </div>
-                  </div>
-
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Visit Premium Page</span>
-                    <span class="float-right"><b>480</b>/800</span>
-                    <div class="progress progress-sm">
-                      <div class="progress-bar bg-success" style="width: 60%"></div>
-                    </div>
-                  </div>
-
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    Send Inquiries
-                    <span class="float-right"><b>250</b>/500</span>
-                    <div class="progress progress-sm">
-                      <div class="progress-bar bg-warning" style="width: 50%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
                 </div>
                 <!-- /.col -->
               </div>
@@ -162,7 +165,6 @@
               <div class="row">
                 <div class="col-sm-3 col-6">
                   <div class="description-block border-right">
-            
                     <h5 class="description-header">{{ info.0|safe }}</h5>
                     <span class="description-text">Number of Training Data</span>
                   </div>
@@ -171,7 +173,6 @@
                 <!-- /.col -->
                 <div class="col-sm-3 col-6">
                   <div class="description-block border-right">
-                    
                     <h5 class="description-header">{{ info.1|safe }}</h5>
                     <span class="description-text">Number of Testing Data</span>
                   </div>
@@ -180,7 +181,6 @@
                 <!-- /.col -->
                 <div class="col-sm-3 col-6">
                   <div class="description-block border-right">
-                    
                     <h5 class="description-header">{{ info.2|safe }}</h5>
                     <span class="description-text">Time Taken</span>
                   </div>
@@ -189,7 +189,6 @@
                 <!-- /.col -->
                 <div class="col-sm-3 col-6">
                   <div class="description-block">
-                    
                     <h5 class="description-header">{{ info.3|safe }}</h5>
                     <span class="description-text">Accuracy Score</span>
                   </div>
@@ -236,12 +235,7 @@
             <div class="card card-info">
               <div class="card-header">
                 <h3 class="card-title">EWMA20 VS EWMA80</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
                     <i class="fas fa-times"></i>
                   </button>
                 </div>

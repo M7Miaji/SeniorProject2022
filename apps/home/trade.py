@@ -316,8 +316,8 @@ def processing(data):
     return TimeSteps, TotalFeatures, FutureTimeSteps, X_train, y_train, X_test, y_test, DataScaler
 
 def predict_future(model, data, DataScaler):
-
-    Last10DaysPrices=np.array([167.22999573, 166.41999817, 161.78999329, 162.88000488, 156.80000305, 166.41999817, 161.78999329, 162.88000488, 156.80000305, 156.57000732])
+    Last10DaysPrices=np.array(data[-10:])
+    #Last10DaysPrices=np.array([167.22999573, 166.41999817, 161.78999329, 162.88000488, 156.80000305, 166.41999817, 161.78999329, 162.88000488, 156.80000305, 156.57000732])
 
 # Reshaping the data to (-1,1 )because its a single entry
     Last10DaysPrices=Last10DaysPrices.reshape(-1, 1)
@@ -339,6 +339,7 @@ def predict_future(model, data, DataScaler):
     # Generating the prices in original scale
     Next5DaysPrice = DataScaler.inverse_transform(Next5DaysPrice)
     print(Next5DaysPrice)
+    return Next5DaysPrice
 
 def create_dataset(dataset, time_step=1):
     dataX, dataY = [], []
@@ -433,7 +434,9 @@ def main(stockName):
     EndTime=time.time()
     len_time = round((EndTime-StartTime)/60)
     #print(len(X_train))
-    return array_per, array_org, accuracy, len(X_train), len(X_test), len_time
+    Next5Days=predict_future(model, array_org, DataScaler)
+
+    return array_per, array_org, accuracy, len(X_train), len(X_test), len_time, Next5Days
     #predict_future(model, get_data, DataScaler)
     
 def final():
