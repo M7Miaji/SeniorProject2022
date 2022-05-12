@@ -103,7 +103,7 @@ def pages(request):
                 array2 = []
                 array_info = []
                 Next5Daysls = []
-                array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days = main("AAPL")
+                array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df = main("AAPL")
                 array_per.tolist()
                 array_info = [X_train, X_test, len_time, accuracy]
                 for i in range(5):

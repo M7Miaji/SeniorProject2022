@@ -17,7 +17,6 @@ from keras import optimizers
 from keras.callbacks import History
 from keras.models import Model
 from keras.layers import Dense, Dropout, LSTM, Input, Activation, concatenate, CuDNNLSTM, BatchNormalization
-from keras.callbacks import TensorBoard
 from keras.callbacks import ModelCheckpoint, ModelCheckpoint
 from collections import deque
 import random
@@ -40,50 +39,6 @@ def history(stock_ticker, startDate):
     
 np.set_printoptions(suppress=True)
 
-def applytechnicals(df, feature_names):
-    for i in range(2, 10, 2):
-        df['RSI_'+str(i)] = ta.momentum.rsi(df['Close'], window=i)
-        df['SMA_'+str(i * 10)] = df['Close'].rolling(i*10).mean()
-        df['macd']=ta.trend.macd_diff(df['Close'])
-        df['EWMA_'+str(i * 10)] = df['Close'].ewm(span=i*10).mean()
-        feature_names = feature_names + ['RSI_' + str(i), 'SMA_' + str(i * 10), 'EWMA_' + str(i * 10)]
-
-    df['CMA_30'] = df['Close'].expanding().mean()
-    CMA_features = ['CMA_30']
-
-    feature_names.extend(CMA_features)
-    df.dropna(inplace=True)
-
-    return feature_names
-
-def forest_main():
-    startDate='2020-1-1'
-    df=history(stock('AAPL'), startDate)
-    df.drop('Dividends', axis=1, inplace=True) 
-    df.drop('Stock Splits', axis=1, inplace=True)
-    #df.drop('Volume', axis=1, inplace=True) 
-    #print(df)
-    feature_names = []
-    #feature_names = applytechnicals(df, feature_names)
-    df = technicals(df)
-    print(df.head())
-    print(df.columns)
-
-    title =  'Grahph for the indicators'
-    plt.figure(figsize=(12.2,4.5)) 
-    #width = 12.2in, height = 4.5plt.plot( my_stocks['AAPL'],  label='AAPL')#plt.plot( X-Axis , Y-Axis, line_width, alpha_for_blending,  label)
-    #plt.plot( df['AAPL'],  label='SMA30')
-    #plt.plot( df['AAPL'],  label='SMA100')
-    plt.plot( df['Close'],  label='Close')
-    plt.plot( df['CMA_30'],  label='CMA_30')
-    plt.title(title)
-    plt.xlabel('Oct. 02, 2006 - Dec. 30, 2011 ',fontsize=18)
-    plt.ylabel('Close. Price USD ($)',fontsize=18)
-    plt.legend( loc='upper left')
-    plt.show()
-    #random_regressor(df)
-    #random_classify(df)
-
 def CCI(df, ndays): 
     df['TP'] = (df['High'] + df['Low'] + df['Close']) / 3 
     df['sma'] = df['TP'].rolling(ndays).mean()
@@ -105,7 +60,6 @@ def SMA(df, ndays):
     df = df.join(SMA) 
     return df
 
-# Exponentially-weighted Moving Average  https://python.plainenglish.io/algorithmic-trading-using-python-6b37adbf7091 https://www.learndatasci.com/tutorials/python-finance-part-3-moving-average-trading-strategy/ https://towardsdatascience.com/algorithmic-trading-in-python-simple-moving-averages-7498245b10b https://towardsdatascience.com/machine-learning-for-day-trading-27c08274df54 https://www.youtube.com/watch?v=SEQbb8w7VTw
 def EWMA(df, ndays): 
     EMA = pd.Series(df['Close'].ewm(span = ndays, min_periods = ndays - 1).mean(), 
                     name = 'EWMA_' + str(ndays)) 
@@ -166,81 +120,6 @@ def technicals(df):
     return df
 
 
-def random_classify(df):
-    ema10 = df['Close'].ewm(span=10).mean()
-    ema30 = df['Close'].ewm(span=30).mean()
-    df['EMA10gtEMA30'] = np.where(ema10 > ema30, 1, -1)
-    # Calculate where Close is > EMA10
-    df['ClGtEMA10'] = np.where(df['Close'] > ema10, 1, -1)
-    # Calculate the MACD signal
-    exp1 = df['Close'].ewm(span=12).mean()
-    exp2 = df['Close'].ewm(span=26).mean()
-    macd = exp1 - exp2
-    macd_signal = macd.ewm(span=9).mean()
-    df['MACD'] = macd_signal - macd
-    # Calculate RSI
-    delta = df['Close'].diff()
-    up = delta.clip(lower=0)
-    down = -1*delta.clip(upper=0)
-    ema_up = up.ewm(com=13, adjust=False).mean()
-    ema_down = down.ewm(com=13, adjust=False).mean()
-    rs = ema_up/ema_down
-    df['RSI'] = 100 - (100/(1 + rs))
-    # Stochastic Oscillator
-    high14= df['High'].rolling(14).max()
-    low14 = df['Low'].rolling(14).min()
-    df['%K'] = (df['Close'] - low14)*100/(high14 - low14)
-    # Williams Percentage Range
-    df['%R'] = -100*(high14 - df['Close'])/(high14 - low14)
-    days = 6
-    # Price Rate of Change
-    ct_n = df['Close'].shift(days)
-    df['PROC'] = (df['Close'] - ct_n)/ct_n
-    df['Return'] = df['Close'].pct_change(1).shift(-1)
-    df['%Volume'] = df['Volume'].pct_change(1).shift(-1)
-    df['class'] = np.where(df['Return'] > 0, 1, 0)
-    # Clean for NAN rows
-    df = df.dropna()
-    print(df.tail())
-
-def random_regressor(df):
-
-    df = df.select_dtypes(exclude=['object'])
-    df=df.fillna(df.mean())
-    X = df.drop('Close',axis=1)
-    y = df['Close']
-
-    #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
-
-    train_size = int(0.7 * y.shape[0])
-    X_train = X[:train_size]
-    y_train = y[:train_size]
-    X_test = X[train_size:]
-    y_test = y[train_size:]
-
-    regressor = RandomForestRegressor(n_estimators = 1000, random_state = 42)
-    regressor.fit(X_train, y_train)
-
-    y_pred = regressor.predict(X_test)
-
-    ac=pd.DataFrame({'Actual':y_test, 'Predicted':y_pred})
-    print(ac.head())
-
-    print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))
-    print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
-    print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
-
-    # Calculate the absolute errors
-    errors = abs(y_pred - y_test)
-    # Print out the mean absolute error (mae)
-    print('Mean Absolute Error:', round(np.mean(errors), 2), 'degrees.')
-
-    # Calculate mean absolute percentage error (MAPE)
-    mape = 100 * (errors / y_test)
-    # Calculate and display accuracy
-    accuracy = 100 - np.mean(mape)
-    print('Accuracy:', round(accuracy, 2), '%.')
-
 def lstm_model(TimeSteps, TotalFeatures, FutureTimeSteps):
     
     model=Sequential()
@@ -249,7 +128,20 @@ def lstm_model(TimeSteps, TotalFeatures, FutureTimeSteps):
     model.add(LSTM(units = 5, activation = 'relu', return_sequences=False ))
     model.add(Dense(units = FutureTimeSteps))
     model.compile(optimizer = 'adam', loss = 'mean_squared_error')
+    '''
+    model.add(LSTM(units = 64, activation='relu', input_shape=(TimeSteps, TotalFeatures), return_sequences=True))
+    model.add(Dropout(0.3)) # with probability of 0.3
+        
+    model.add(LSTM(units = 64, activation='relu', input_shape=(TimeSteps, TotalFeatures), return_sequences=True))
+    model.add(Dropout(0.3)) # with probability of 0.3
     
+    model.add(LSTM(units=32, activation='relu', input_shape=(TimeSteps, TotalFeatures), return_sequences=False))
+    model.add(Dropout(0.3)) # with probability of 0.3
+
+    model.add(Dense(units=32,kernel_initializer="uniform",activation='relu'))  
+          
+    model.add(Dense(units=FutureTimeSteps,kernel_initializer="uniform",activation='linear'))
+    '''
     return model
 
 def fit(X_train, y_train, model):
@@ -341,58 +233,6 @@ def predict_future(model, data, DataScaler):
     print(Next5DaysPrice)
     return Next5DaysPrice
 
-def create_dataset(dataset, time_step=1):
-    dataX, dataY = [], []
-    for i in range(len(dataset)-time_step-1):
-        a= dataset[i:(i+time_step), 0]
-        dataX.append(a)
-        dataY.append(dataset[i+ time_step, 0])
-    return np.array(dataX), np.array(dataY)
-
-def regression_model():
-    
-    startDate='2020-1-1'
-
-    df=history(stock('AAPL'), startDate)
-
-    df['TradeDate']=df.index
-    
-    df1 = df[['Close']].values
-    print(df.shape)
-    df1 = np.array(df1)
-    df1 = df1.reshape(-1,1)
-
-    scaler = MinMaxScaler(feature_range=(0,1))
-    df1 = scaler.fit_transform(df1)
-
-    # splitting dataset into train and test split
-    training_size = int(len(df1)*0.75)
-    test_size = len(df1)-training_size
-    train_data,test_data  = df1[-training_size:], df1[:-training_size]
-    print(train_data.shape, test_data.shape)
-    time_step = 100
-    X_train, y_train = create_dataset(train_data, time_step)
-    X_test, y_test = create_dataset(test_data, time_step)
-    print(X_train.shape, X_test.shape)
-
-    model = LinearRegression()
-    model.fit(X_train, y_train)
-
-    predictions = model.predict(X_test)
-    print(predictions)
-    print("Predicted Value",predictions[:10][0])
-    print("Expected Value",y_test[:10][0])
-    predictions = predictions.reshape(-1, 1)
-    predictions = scaler.inverse_transform(predictions)
-    pred_df= pd.DataFrame(predictions)
-    y_test = y_test.reshape(-1, 1)
-    y_test = scaler.inverse_transform(y_test)
-    pred_df['TrueValues']=y_test
-
-    new_pred_df=pred_df.rename(columns={0: 'Predictions'})
-    print(new_pred_df.head())
-    print("Shape of the prediction for Linear Regression: ",new_pred_df.shape)
-
 def main(stockName):
     StartTime=time.time()
     startDate='2020-1-1'
@@ -435,12 +275,20 @@ def main(stockName):
     len_time = round((EndTime-StartTime)/60)
     #print(len(X_train))
     Next5Days=predict_future(model, array_org, DataScaler)
+    print("Test 1")
+    print(array_org)
 
-    return array_per, array_org, accuracy, len(X_train), len(X_test), len_time, Next5Days
+    df = pd.DataFrame()
+    df = get_data.tail(281)
+
+    df = technicals(df)
+    df['Close Prediction'] = array_per.tolist()
+
+    return array_per, array_org, accuracy, len(X_train), len(X_test), len_time, Next5Days, df
     #predict_future(model, get_data, DataScaler)
     
-def final():
+#array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df= main('AAPL')
 
-    return 0
-
-#main('AAPL')
+#print(df.tail())
+#print(df.shape)
+#print(df.columns)
