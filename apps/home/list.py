@@ -15,3 +15,23 @@ symbol_strings = list_stock1 + list_stock2 + list_stock3 + list_stock4 + list_st
 
 def sample():
 	return symbol_strings
+
+
+# Sectors 
+
+Basic_Materials = "FOE,KRA,NC,SLVM,TREC,VHI,GSS,IOSP,CC,HUDI,FRTA,HNRG,VRS,PVG,NRP,DOW,ARLP,WLK,LYB"
+Communication_Services = "ORAN,AREN,PHI,HHS,T,TEF,ATNI,AMX,AMOV,RADI,CHT,KT,TLK,VG,BCE,TU,TIMB,HMTV,VIV,PTNR"
+Conglomerates = "SANB"
+Consumer_Cyclical = "MTOR,DVD,TACO,HRB,WEYS,MYE,AMCR,MUSA,UFPT,CMLS,VALU,FNKO,PKG,PAG,SCI,GPK,MAT,CPHC"
+Consumer_Defensive = "SJM,GIS,HSY,KHC,K,POST,UVV,HMHC,GO,KMB,CPB,MDLZ,SENEB,ALCO,PM,CAG,TAP,FLO,PME"
+Energy = ""
+Financial = ""
+Financial_Services = ""
+Healthcare = ""
+Industrial_Goods = "" 
+Industrials = ""
+Other = ""
+Real_Estate = "" 
+Services = ""
+Technology = ""
+Utilities =	""
