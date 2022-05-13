@@ -17,7 +17,7 @@ def BBANDS(df, n):
     df['LowerBB_'+str(n)] = MA - (2 * SD)
     return df
 
-def main(stockName):
+def main_bbands(stockName):
 	startDate='2020-1-1'
 	stock_info=history(stock(stockName), startDate)
 	stock_info['TradeDate']=stock_info.index

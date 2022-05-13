@@ -16,7 +16,7 @@ def EWMA(df, ndays):
     df = df.join(EMA) 
     return df 
 
-def main(stockName):
+def main_ewma(stockName):
 	startDate='2020-1-1'
 	stock_info=history(stock(stockName), startDate)
 	stock_info['TradeDate']=stock_info.index
@@ -43,7 +43,4 @@ def main(stockName):
 	else:
 		signal = "Sell"
 
-	print(Buy)
-	print(Sell)
-	print(signal)
 	return Buy, Sell, stock_info, signal

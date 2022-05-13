@@ -15,7 +15,7 @@ def SMA(df, ndays):
     df = df.join(SMA) 
     return df
 
-def main(stockName):
+def main_sma(stockName):
 	startDate='2020-1-1'
 	stock_info=history(stock(stockName), startDate)
 	stock_info['TradeDate']=stock_info.index

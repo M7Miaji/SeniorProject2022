@@ -23,7 +23,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from django.http import HttpResponse
-
+from .macd import main_macd
+from .bbands import main_bbands
+from .sma import main_sma
+from .ewma import main_ewma
 # The feedparser that will get the application from the web 
 feed = feedparser.parse("https://www.cnbc.com/id/20409666/device/rss/rss.html?x=1")
 
@@ -79,6 +82,33 @@ def pages(request):
 
                 new_config = Configuration(mode=mode_, industry=industry_, algorithm=algorithm_, risk_percentage=risk_percentage_, diversity=diversity_, max_buy=max_buy_, min_traded=min_traded_, max_traded=max_traded_, username=username_)
                 new_config.save()
+
+                stock = ['AAPL','MSFT','GOOG','AMZN','TSLA','FB']
+                rows_alg = Configuration.objects.all()
+                for i in range(len(rows_alg)):
+                    if rows_alg[i].username == request.user.username:
+                        industry_test = rows_alg[i].industry
+                        algorithm_test = rows_alg[i].algorithm
+                        risk_percentage_test = rows_alg[i].risk_percentage
+                        diversity_test = rows_alg[i].diversity
+                        max_buy_test = rows_alg[i].max_buy
+                        min_traded_test = rows_alg[i].min_traded
+                        max_traded_test = rows_alg[i].max_traded
+                        '''
+                        Buy, Sell, stock_info, signal = ""
+                        for i in stock:
+                            if algorithm_test == "SMA":
+                                Buy, Sell, stock_info, signal = main_sma(i)
+                            if algorithm_test == "EWMA":
+                                Buy, Sell, stock_info, signal = main_ewma(i)
+                            if algorithm_test == "BBANDS":
+                                Buy, Sell, stock_info, signal = main_bbands(i)
+                            if algorithm_test == "MACD":
+                                Buy, Sell, stock_info, signal = main_macd(i)
+                            if algorithm_test == "LSTM":
+                                array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df = main(i)'''
+                            #new_config = My_Transaction(Mode = algorithm_test, Company = i, Industry = industry_test, History = signal, Profit_Loss = stock_info['Close'].iloc[-1])
+                            #new_config.save()
             
             return HttpResponse(html_template.render(context, request))
 

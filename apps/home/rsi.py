@@ -39,7 +39,7 @@ def getSignals(df):
                     Sell.append(df.iloc[i+j+1].name)
     return Buy, Sell
 
-def main(stockName):
+def main_rsi(stockName):
     startDate='2020-1-1'
     stock_info = history(stock(stockName), startDate)
     stock_info.drop('Dividends', axis=1, inplace=True)

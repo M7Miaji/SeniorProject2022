@@ -19,7 +19,7 @@ def EVM(df):
 	print('indicator added')
 	return df
 
-def main(stockName):
+def main_macd(stockName):
 	startDate='2020-1-1'
 	stock_info=history(stock(stockName), startDate)
 	stock_info.drop('Dividends', axis=1, inplace=True)
