@@ -78,7 +78,6 @@ def pages(request):
 
         elif load_template == 'tables-data.html': # My Transaction ADD POST----------------------------------------------------------
             context = {
-                "data": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             }
             if load_template == 'admin':
                 return HttpResponseRedirect(reverse('admin:index'))
@@ -86,8 +85,31 @@ def pages(request):
             html_template = loader.get_template('home/' + load_template)
 
             all_data = My_Transaction.objects.all()
-            #for i in all_data:
-            #    print(i.mode)
+            usernames = request.user.username
+            modes = []
+            companys = []
+            industries = []
+            signals = []
+            prices = []
+            for i in range(len(all_data)):
+                if all_data[i].username == usernames:
+                    modes.append(all_data[i].mode)
+                    companys.append(all_data[i].company)
+                    industries.append(all_data[i].industry)
+                    signals.append(all_data[i].history)
+                    prices.append(all_data[i].profit_loss)
+            print(modes)
+            #print(modes)
+            context = {
+                "filename": "tables-data.html",
+                "collapse": "",
+                "mode": modes,
+                "company": companys,
+                "industry": industries,
+                "signal": signals,
+                "price": prices,
+            }
+
             return HttpResponse(html_template.render(context, request))
         
         elif load_template == 'charts-chartjs.html': # My Transaction ADD POST----------------------------------------------------------
