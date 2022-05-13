@@ -60,6 +60,7 @@ def pages(request):
                 return HttpResponseRedirect(reverse('admin:index'))
             #context['segment'] = load_template
             html_template = loader.get_template('home/' + load_template)
+
             if request.method == 'POST':
                 mode_ = request.POST['mode']
                 industry_ = request.POST['industry']
@@ -70,10 +71,15 @@ def pages(request):
                 min_traded_ = request.POST['min_traded']
                 max_traded_ = request.POST['max_traded']
                 username_ = request.POST['username']
+                username_ = request.user.username
+
+                rows = Configuration.objects.filter(username=username_) 
+                for r in rows: 
+                    r.delete() 
 
                 new_config = Configuration(mode=mode_, industry=industry_, algorithm=algorithm_, risk_percentage=risk_percentage_, diversity=diversity_, max_buy=max_buy_, min_traded=min_traded_, max_traded=max_traded_, username=username_)
                 new_config.save()
-
+            
             return HttpResponse(html_template.render(context, request))
 
         elif load_template == 'tables-data.html': # My Transaction ADD POST----------------------------------------------------------

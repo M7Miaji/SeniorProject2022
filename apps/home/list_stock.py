@@ -17,8 +17,17 @@ def sample():
 	return symbol_strings
 
 '''
-
+from yahoo_fin import stock_info as si
 import pandas as pd
+import yfinance as yf 
+
+def stock(stock_symbol):
+    stock_info = yf.Ticker(stock_symbol)
+    return stock_info
+
+def history(stock_ticker, startDate):
+	hist = stock_ticker.history(start=startDate)
+	return hist
 
 def stock_file():
 	file = ('S&P500.xlsx')
@@ -28,4 +37,32 @@ def stock_file():
 def sectors():
 	string = "Commercial Services,Communications,Consumer Durables,Consumer Non-Durables,Consumer Services,Distribution Services,Electronic Technology,Energy Minerals,Finance,Health Services,Health Technology,Industrial Services,Non-Energy Minerals,Process Industries,Producer Manufacturing,Retail Trade,Technology Services,Transportation,Utilities"
 	return string
-	
+
+def main_list(industry, percentage, max_price):
+	stock_list = []
+	df = stock_file()
+	df['PE Ratio'] = df['PE Ratio'].fillna(0)
+	price = 0
+	for idx, row in df.iterrows():
+			for i in industry:
+				if row['Sector'] == i:
+					if percentage == '25%':
+						if int(float(row['PE Ratio'])) < 15:
+							price = stock(row['Ticker']).info['currentPrice']
+							if float(price) < max_price:
+								stock_list.append(row['Ticker'])
+					if percentage == '50%':
+						if int(float(row['PE Ratio'])) < 30 & int(float(row['PE Ratio'])) > 15:
+							price = stock(row['Ticker']).info['currentPrice']
+							if float(price) < max_price:
+								stock_list.append(row['Ticker'])
+					if percentage == '75%':
+						if int(float(row['PE Ratio'])) > 30:
+							price = stock(row['Ticker']).info
+							if float(price['regularMarketPrice']) < max_price:
+								stock_list.append(row['Ticker'])
+	return stock_list
+
+industry = ['Commercial Services', 'Communications', 'Utilities']
+stock = main_list(industry, '75%', 500)
+print(stock)

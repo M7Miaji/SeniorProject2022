@@ -9,12 +9,9 @@ from scipy import stats #The SciPy stats module
 #from yahoo_api import get_all, stocks
 from IPython.display import display
 from scraping import stock
-from list import sample
 from statistics import mean
 
 stocker = 'AAPL,MSFT,GOOG,AMZN,TSLA,FB,NVDA,COST,ASML,INTC,CSCO,MU,OPEN,LCID,CSCO,RDBX,METC,TKNO,ZIMV,GOGO,AMD,GOOGL,NFLX'
-
-symbol_strings = sample()
 
 symbol_strings_test = stocker.split(",")
 
