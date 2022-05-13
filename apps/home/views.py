@@ -91,18 +91,27 @@ def pages(request):
             industries = []
             signals = []
             prices = []
+            nums = []
+            print(len(all_data))
+            count = 1
             for i in range(len(all_data)):
                 if all_data[i].username == usernames:
+                    nums.append(count)
+                    print("----",all_data[i].mode)
                     modes.append(all_data[i].mode)
                     companys.append(all_data[i].company)
                     industries.append(all_data[i].industry)
                     signals.append(all_data[i].history)
                     prices.append(all_data[i].profit_loss)
+                    count = count + 1
+            mylist = zip(nums, modes, companys, signals, prices)
             print(modes)
             #print(modes)
             context = {
                 "filename": "tables-data.html",
                 "collapse": "",
+                "mylist": mylist,
+                "num": nums,
                 "mode": modes,
                 "company": companys,
                 "industry": industries,
