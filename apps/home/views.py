@@ -109,7 +109,7 @@ def pages(request):
                                 elif algorithm_test == "MACD":
                                     Buy, Sell, stock_info, signal = main_macd(i)
                                 elif algorithm_test == "LSTM":
-                                    array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df= main_lstm(i)
+                                    array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df, signal= main_lstm(i)
                                 
                                 My_Transaction.objects.create(mode = algorithm_test, company = i, industry = 'TECH', history = signal, profit_loss = stock_info['Close'].iloc[-1], username = request.user.username)
                             except:
@@ -180,7 +180,7 @@ def pages(request):
                 array2 = []
                 array_info = []
                 Next5Daysls = []
-                array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df= main_lstm("AAPL")
+                array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df, signal = main_lstm("AAPL")
                 array_per.tolist()
                 array_info = [X_train, X_test, len_time, accuracy]
                 for i in range(5):

@@ -14,3 +14,9 @@ feedparser
 pandas
 requests
 matplotlib
+sklearn 
+keras 
+seaborn 
+tensorflow 
+ta 
+yfinance

@@ -288,9 +288,11 @@ def main_lstm(stockName):
     signal = 'Hold' 
     count = 1
     print("kyky --------------------------------------------------------------")
-    if df['Close'].tail(1) > Next5Days[0]:
+    print(df['Close'].iloc[-1])
+    print(Next5Days[0][0])
+    if df['Close'].iloc[-1] > Next5Days[0][0]:
         sell.append(count)
-    elif df['Close'].tail(1) < Next5Days[0]:
+    elif df['Close'].iloc[-1] < Next5Days[0][0]:
         buy.append(count)
 
     if buy[-1] > sell[-1]:
@@ -299,10 +301,10 @@ def main_lstm(stockName):
         signal = "Sell" 
     print(signal)  
 
-    return array_per, array_org, accuracy, len(X_train), len(X_test), len_time, Next5Days, df
+    return array_per, array_org, accuracy, len(X_train), len(X_test), len_time, Next5Days, df, signal
     #predict_future(model, get_data, DataScaler)
 
-array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df= main_lstm('AAPL')
+array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df = main_lstm('AAPL')
 
 #print(df.tail())
 #print(df.shape)
