@@ -94,22 +94,24 @@ def pages(request):
                         max_buy_test = rows_alg[i].max_buy
                         min_traded_test = rows_alg[i].min_traded
                         max_traded_test = rows_alg[i].max_traded
-                        '''
-                        Buy, Sell, stock_info, signal = ""
+                        
+                        Buy, Sell, stock_info, signal = [], [], "", ""
                         for i in stock:
-                            if algorithm_test == "SMA":
-                                Buy, Sell, stock_info, signal = main_sma(i)
-                            if algorithm_test == "EWMA":
-                                Buy, Sell, stock_info, signal = main_ewma(i)
-                            if algorithm_test == "BBANDS":
-                                Buy, Sell, stock_info, signal = main_bbands(i)
-                            if algorithm_test == "MACD":
-                                Buy, Sell, stock_info, signal = main_macd(i)
-                            if algorithm_test == "LSTM":
-                                array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df = main(i)'''
-                            #new_config = My_Transaction(Mode = algorithm_test, Company = i, Industry = industry_test, History = signal, Profit_Loss = stock_info['Close'].iloc[-1])
-                            #new_config.save()
-            
+                            try:
+                                if algorithm_test == "SMA":
+                                    Buy, Sell, stock_info, signal = main_sma(i)
+                                if algorithm_test == "EWMA":
+                                    Buy, Sell, stock_info, signal = main_ewma(i)
+                                if algorithm_test == "BBANDS":
+                                    Buy, Sell, stock_info, signal = main_bbands(i)
+                                if algorithm_test == "MACD":
+                                    Buy, Sell, stock_info, signal = main_macd(i)
+                                if algorithm_test == "LSTM":
+                                    array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df = main(i)
+                                print("###################################################################################")
+                                My_Transaction.objects.create(mode = algorithm_test, company = i, industry = 'TECH', history = signal, profit_loss = stock_info['Close'].iloc[-1], username = request.user.username)
+                            except:
+                                pass
             return HttpResponse(html_template.render(context, request))
 
         elif load_template == 'tables-data.html': # My Transaction ADD POST----------------------------------------------------------
