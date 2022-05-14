@@ -59,25 +59,33 @@ def main_list(industry, percentage, max_price):
 				if row['Sector'] == i:
 					if percentage == '25%':
 						if int(float(row['PE Ratio'])) < 15:
-							price = stock(row['Ticker']).info['currentPrice']
+							price = stock(row['Ticker']).info['regularMarketPrice']
+							print(price)
+							if price == 'NoneType':
+								price = 1000000
 							if float(price) < max_price:
 								stock_list.append(row['Ticker'])
 					if percentage == '50%':
 						if int(float(row['PE Ratio'])) < 30 & int(float(row['PE Ratio'])) > 15:
-							price = stock(row['Ticker']).info['currentPrice']
+							price = stock(row['Ticker']).info['regularMarketPrice']
+							print(price)
+							if price == 'NoneType':
+								price = 1000000
 							if float(price) < max_price:
 								stock_list.append(row['Ticker'])
 					if percentage == '75%':
 						if int(float(row['PE Ratio'])) > 30:
-							price = stock(row['Ticker']).info
-							if float(price['regularMarketPrice']) < max_price:
+							price = stock(row['Ticker']).info['regularMarketPrice']
+							if price == 'NoneType':
+								price = 1000000
+							if float(price) < max_price:
 								stock_list.append(row['Ticker'])
 	print(stock_list)
 	return stock_list
 
-industry = ['Technology Services']
-stock = main_list(industry, '75%', 500)
-print(stock)
+#industry = ['Technology Services']
+#stock = main_list(industry, '75%', 1000)
+#print(stock)
 
 #s = """
 #""".strip().replace("\n", ",")
