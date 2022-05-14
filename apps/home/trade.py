@@ -304,7 +304,7 @@ def main_lstm(stockName):
     return array_per, array_org, accuracy, len(X_train), len(X_test), len_time, Next5Days, df, signal
     #predict_future(model, get_data, DataScaler)
 
-array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df = main_lstm('AAPL')
+#array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df = main_lstm('AAPL')
 
 #print(df.tail())
 #print(df.shape)
