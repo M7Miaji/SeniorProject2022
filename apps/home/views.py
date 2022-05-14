@@ -18,7 +18,7 @@ from .yahoo_api import get_quotes
 from django.shortcuts import render
 from .models import My_Transaction
 from .models import Configuration
-from .trade import main
+from .trade import main_lstm
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_agg import FigureCanvasAgg
@@ -83,7 +83,7 @@ def pages(request):
                 new_config = Configuration(mode=mode_, industry=industry_, algorithm=algorithm_, risk_percentage=risk_percentage_, diversity=diversity_, max_buy=max_buy_, min_traded=min_traded_, max_traded=max_traded_, username=username_)
                 new_config.save()
 
-                stock = ['AAPL','MSFT','GOOG','AMZN','TSLA','FB']
+                stock = ['AAPL']
                 rows_alg = Configuration.objects.all()
                 for i in range(len(rows_alg)):
                     if rows_alg[i].username == request.user.username:
@@ -95,23 +95,26 @@ def pages(request):
                         min_traded_test = rows_alg[i].min_traded
                         max_traded_test = rows_alg[i].max_traded
                         
-                        Buy, Sell, stock_info, signal = [], [], "", ""
+                        Buy, Sell, stock_info, signal = [0], [0], "", "Sell"
+                        print(algorithm_test)
+                        print("###################################################################################")
                         for i in stock:
                             try:
                                 if algorithm_test == "SMA":
                                     Buy, Sell, stock_info, signal = main_sma(i)
-                                if algorithm_test == "EWMA":
+                                elif algorithm_test == "EWMA":
                                     Buy, Sell, stock_info, signal = main_ewma(i)
-                                if algorithm_test == "BBANDS":
+                                elif algorithm_test == "BBANDS":
                                     Buy, Sell, stock_info, signal = main_bbands(i)
-                                if algorithm_test == "MACD":
+                                elif algorithm_test == "MACD":
                                     Buy, Sell, stock_info, signal = main_macd(i)
-                                if algorithm_test == "LSTM":
-                                    array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df = main(i)
-                                print("###################################################################################")
+                                elif algorithm_test == "LSTM":
+                                    array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df= main_lstm(i)
+                                
                                 My_Transaction.objects.create(mode = algorithm_test, company = i, industry = 'TECH', history = signal, profit_loss = stock_info['Close'].iloc[-1], username = request.user.username)
                             except:
                                 pass
+                            
             return HttpResponse(html_template.render(context, request))
 
         elif load_template == 'tables-data.html': # My Transaction ADD POST----------------------------------------------------------
@@ -142,6 +145,11 @@ def pages(request):
                     signals.append(all_data[i].history)
                     prices.append(all_data[i].profit_loss)
                     count = count + 1
+            modes.reverse()
+            companys.reverse()
+            industries.reverse()
+            signals.reverse()
+            prices.reverse()
             mylist = zip(nums, modes, companys, signals, prices)
             print(modes)
             #print(modes)
@@ -172,7 +180,7 @@ def pages(request):
                 array2 = []
                 array_info = []
                 Next5Daysls = []
-                array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df = main("AAPL")
+                array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df= main_lstm("AAPL")
                 array_per.tolist()
                 array_info = [X_train, X_test, len_time, accuracy]
                 for i in range(5):

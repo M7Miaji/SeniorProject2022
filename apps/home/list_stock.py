@@ -17,7 +17,6 @@ def sample():
 	return symbol_strings
 
 '''
-from yahoo_fin import stock_info as si
 import pandas as pd
 import yfinance as yf 
 

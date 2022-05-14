@@ -233,7 +233,7 @@ def predict_future(model, data, DataScaler):
     print(Next5DaysPrice)
     return Next5DaysPrice
 
-def main(stockName):
+def main_lstm(stockName):
     StartTime=time.time()
     startDate='2020-1-1'
     get_data=history(stock(stockName), startDate)
@@ -281,13 +281,28 @@ def main(stockName):
     df = pd.DataFrame()
     df = get_data.tail(281)
 
-    df = technicals(df)
-    df['Close Prediction'] = array_per.tolist()
+    #df = technicals(df)
+    #df['Close Prediction'] = array_per.tolist()
+    buy = [0]
+    sell = [0]
+    signal = 'Hold' 
+    count = 1
+    print("kyky --------------------------------------------------------------")
+    if df['Close'].tail(1) > Next5Days[0]:
+        sell.append(count)
+    elif df['Close'].tail(1) < Next5Days[0]:
+        buy.append(count)
+
+    if buy[-1] > sell[-1]:
+        signal = "Buy"
+    elif buy[-1] < sell[-1]:
+        signal = "Sell" 
+    print(signal)  
 
     return array_per, array_org, accuracy, len(X_train), len(X_test), len_time, Next5Days, df
     #predict_future(model, get_data, DataScaler)
-    
-#array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df= main('AAPL')
+
+array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df= main_lstm('AAPL')
 
 #print(df.tail())
 #print(df.shape)
