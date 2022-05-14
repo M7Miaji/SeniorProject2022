@@ -109,8 +109,8 @@ def pages(request):
                                 elif algorithm_test == "MACD":
                                     Buy, Sell, stock_info, signal = main_macd(i)
                                 elif algorithm_test == "LSTM":
-                                    array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df, signal= main_lstm(i)
-                                
+                                    array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, stock_info, signal= main_lstm(i)
+                                    print(signal, "test #######")
                                 My_Transaction.objects.create(mode = algorithm_test, company = i, industry = 'TECH', history = signal, profit_loss = stock_info['Close'].iloc[-1], username = request.user.username)
                             except:
                                 pass

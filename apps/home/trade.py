@@ -287,9 +287,6 @@ def main_lstm(stockName):
     sell = [0]
     signal = 'Hold' 
     count = 1
-    print("kyky --------------------------------------------------------------")
-    print(df['Close'].iloc[-1])
-    print(Next5Days[0][0])
     if df['Close'].iloc[-1] > Next5Days[0][0]:
         sell.append(count)
     elif df['Close'].iloc[-1] < Next5Days[0][0]:
@@ -299,7 +296,6 @@ def main_lstm(stockName):
         signal = "Buy"
     elif buy[-1] < sell[-1]:
         signal = "Sell" 
-    print(signal)  
 
     return array_per, array_org, accuracy, len(X_train), len(X_test), len_time, Next5Days, df, signal
     #predict_future(model, get_data, DataScaler)
