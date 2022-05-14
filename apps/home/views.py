@@ -85,6 +85,7 @@ def pages(request):
                 new_config.save()
 
                 stock = []
+                inds = []
                 rows_alg = Configuration.objects.all()
                 for i in range(len(rows_alg)):
                     if rows_alg[i].username == request.user.username:
@@ -95,9 +96,11 @@ def pages(request):
                         max_buy_test = rows_alg[i].max_buy
                         min_traded_test = rows_alg[i].min_traded
                         max_traded_test = rows_alg[i].max_traded
-                        inds = ['Commercial Services', 'Communications', 'Utilities']
-                        print(inds)
+                        inds.append(industry_test)
+                
+                        print(inds, " test 1")
                         stock = main_list(inds, risk_percentage_test, max_buy_test)
+                        print(stock)
                         Buy, Sell, stock_info, signal = [0], [0], "", "Sell"
                         for i in stock:
                             try:
