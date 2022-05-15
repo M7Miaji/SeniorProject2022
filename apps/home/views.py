@@ -177,14 +177,13 @@ def pages(request):
             array = list(range(1, 201))
             array2 = list(range(1, 201))
             Next5Daysls = [0,0,0,0,0]
-
             if request.method == 'POST':
                 search = request.POST['search']
                 array = []
                 array2 = []
                 array_info = []
                 Next5Daysls = []
-                array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df, signal = main_lstm("AAPL")
+                array_per, array_org, accuracy, X_train, X_test, len_time, Next5Days, df, signal = main_lstm(search)
                 array_per.tolist()
                 array_info = [X_train, X_test, len_time, accuracy]
                 for i in range(5):
