@@ -230,6 +230,34 @@ def pages(request):
             #context['segment'] = load_template
             html_template = loader.get_template('home/' + load_template)
             return HttpResponse(html_template.render(context, request))
+
+        elif load_template == 'index.html': # My Transaction ADD POST----------------------------------------------------------
+            context = {
+            }
+            if load_template == 'admin':
+                return HttpResponseRedirect(reverse('admin:index'))
+            #context['segment'] = load_template
+            html_template = loader.get_template('home/' + load_template)
+
+            all_data = My_Transaction.objects.all()
+            count = 0
+            usernames = request.user.username
+            companys = []
+            signals = []
+            for i in range(len(all_data)):
+                if all_data[i].username == usernames:
+                    if count < 5:
+                        companys.append(all_data[i].company)
+                        signals.append(all_data[i].history)
+                        
+            context = {
+                "filename": "index.html",
+                "collapse": "",
+                "company": companys,
+                "signal": signals,
+            }
+
+            return HttpResponse(html_template.render(context, request))
          
         else:
             if load_template == 'admin':

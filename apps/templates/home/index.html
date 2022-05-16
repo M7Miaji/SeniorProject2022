@@ -62,14 +62,14 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>150</h3>
+              <h3>8</h3>
 
               <p>Configuration</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="/forms-general copy.html" class="small-box-footer">More info <i
+            <a href="/Configuration.html" class="small-box-footer">More info <i
                 class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
@@ -78,7 +78,7 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3>Apple<sup style="font-size: 20px"></sup></h3>
 
               <p>Stock Information</p>
             </div>
@@ -93,7 +93,7 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>44</h3>
+              <h3>9</h3>
 
               <p>My Transactions</p>
             </div>
@@ -108,7 +108,7 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>65</h3>
+              <h3>20</h3>
 
               <p>News</p>
             </div>
@@ -159,10 +159,52 @@
                     <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
                   </p>
 
-                  <div class="chart">
-                    <!-- Sales Chart Canvas -->
-                    <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
-                  </div>
+<!-- TradingView Widget BEGIN -->
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div id="tradingview_58879"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/AAPL/" rel="noopener" target="_blank"><span class="blue-text"></span></a></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script type="text/javascript">
+  new TradingView.MediumWidget(
+  {
+  "symbols": [
+    [
+      "Apple",
+      "AAPL"
+    ],
+    [
+      "Google",
+      "GOOGL"
+    ],
+    [
+      "Microsoft",
+      "MSFT"
+    ]
+  ],
+  "chartOnly": false,
+  "width": "750",
+  "height": "350",
+  "locale": "en",
+  "colorTheme": "dark",
+  "gridLineColor": "rgba(240, 243, 250, 0)",
+  "fontColor": "#787B86",
+  "isTransparent": false,
+  "autosize": false,
+  "showVolume": false,
+  "hideDateRanges": false,
+  "scalePosition": "no",
+  "scaleMode": "Normal",
+  "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+  "noTimeScale": false,
+  "valuesTracking": "1",
+  "chartType": "line",
+  "container_id": "tradingview_58879"
+}
+  );
+  </script>
+</div>
+<!-- TradingView Widget END -->
                   <!-- /.chart-responsive -->
                 </div>
                 <!-- /.col -->
@@ -170,42 +212,44 @@
                   <p class="text-center">
                     <strong>Goal Completion</strong>
                   </p>
-
-                  <div class="progress-group">
-                    Add Products to Cart
-                    <span class="float-right"><b>160</b>/200</span>
-                    <div class="progress progress-sm">
-                      <div class="progress-bar bg-primary" style="width: 80%"></div>
-                    </div>
+                  <div class="card-body">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Price</th>
+                          <th style="width: 40px">Percentage</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1.</td>
+                          <td>{{ company.0|safe }}</td>
+                          <td><span class="badge bg-danger">{{ signal.0|safe }}</span></td>
+                        </tr>
+                        <tr>
+                          <td>2.</td>
+                          <td>{{ company.1|safe }}</td>
+                          <td><span class="badge bg-warning">{{ signal.0|safe }}</span></td>
+                        </tr>
+                        <tr>
+                          <td>3.</td>
+                          <td>{{ company.2|safe }}</td>
+                          <td><span class="badge bg-primary">{{ signal.0|safe }}</span></td>
+                        </tr>
+                        <tr>
+                          <td>4.</td>
+                          <td>{{ company.3|safe }}</td>
+                          <td><span class="badge bg-success">{{ signal.0|safe }}</span></td>
+                        </tr>
+                        <tr>
+                          <td>5.</td>
+                          <td>{{ company.4|safe }}</td>
+                          <td><span class="badge bg-success">{{ signal.0|safe }}</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
-                  <!-- /.progress-group -->
-
-                  <div class="progress-group">
-                    Complete Purchase
-                    <span class="float-right"><b>310</b>/400</span>
-                    <div class="progress progress-sm">
-                      <div class="progress-bar bg-danger" style="width: 75%"></div>
-                    </div>
-                  </div>
-
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Visit Premium Page</span>
-                    <span class="float-right"><b>480</b>/800</span>
-                    <div class="progress progress-sm">
-                      <div class="progress-bar bg-success" style="width: 60%"></div>
-                    </div>
-                  </div>
-
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    Send Inquiries
-                    <span class="float-right"><b>250</b>/500</span>
-                    <div class="progress progress-sm">
-                      <div class="progress-bar bg-warning" style="width: 50%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
                 </div>
                 <!-- /.col -->
               </div>
