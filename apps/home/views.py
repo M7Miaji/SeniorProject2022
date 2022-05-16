@@ -10,6 +10,7 @@ from django.template import loader
 from django.urls import reverse
 from django.shortcuts import render
 import feedparser
+from datetime import date
 import webbrowser
 import json
 from django.template.defaulttags import register
@@ -219,11 +220,12 @@ def pages(request):
 
         elif load_template == 'stockInfo.html':
             search = 'AAPL'
+            today = date.today()
             if request.method == 'POST':
                 search = request.POST['search']
             data = get_quotes(search)
             context = {
-                "data": [data['quoteResponse']['result'][0]['regularMarketPrice'], data['quoteResponse']['result'][0]['regularMarketChangePercent'], data['quoteResponse']['result'][0]['marketCap'], 33.1, data['quoteResponse']['result'][0]['trailingPE'], 12, 15, data['quoteResponse']['result'][0]['priceToSales'], 0.5, 28.2, data['quoteResponse']['result'][0]['revenue'], 3, 1199, data['quoteResponse']['result'][0]['pegRatio'], 63, 352, 12, 0.8, 1],
+                "data": [data['quoteResponse']['result'][0]['regularMarketPrice'], data['quoteResponse']['result'][0]['regularMarketChangePercent'], data['quoteResponse']['result'][0]['marketCap'], 33.1, data['quoteResponse']['result'][0]['trailingPE'], 12, 15, data['quoteResponse']['result'][0]['priceToSales'], 0.5, 28.2, data['quoteResponse']['result'][0]['revenue'], 3, 1199, data['quoteResponse']['result'][0]['pegRatio'], 63, 352, data['quoteResponse']['result'][0]['sharesOutstanding'], data['quoteResponse']['result'][0]['dividendRate'], data['quoteResponse']['result'][0]['regularMarketVolume'], search, today],
             }
             if load_template == 'admin':
                 return HttpResponseRedirect(reverse('admin:index'))
