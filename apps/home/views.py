@@ -48,7 +48,7 @@ def pages(request):
         
         load_template = request.path.split('/')[-1]
         # Remove the if statment to get back at the orginal code
-        if load_template == 'examples-project-detail.html':
+        if load_template == 'news.html':
             context = {}
             if load_template == 'admin':
                 return HttpResponseRedirect(reverse('admin:index'))
@@ -121,7 +121,7 @@ def pages(request):
                             
             return HttpResponse(html_template.render(context, request))
 
-        elif load_template == 'tables-data.html': # My Transaction ADD POST----------------------------------------------------------
+        elif load_template == 'myTransaction.html': # My Transaction ADD POST----------------------------------------------------------
             context = {
             }
             if load_template == 'admin':
@@ -171,7 +171,7 @@ def pages(request):
 
             return HttpResponse(html_template.render(context, request))
         
-        elif load_template == 'charts-chartjs.html': # My Transaction ADD POST----------------------------------------------------------
+        elif load_template == 'aiChart.html': # My Transaction ADD POST----------------------------------------------------------
     
             array_info = [0, 0, 0, 0]
             array = list(range(1, 201))
@@ -217,7 +217,7 @@ def pages(request):
             #    print(i.mode)
             return HttpResponse(html_template.render(context, request))
 
-        elif load_template == 'index3 copy.html':
+        elif load_template == 'stockInfo.html':
             search = 'AAPL'
             if request.method == 'POST':
                 search = request.POST['search']
